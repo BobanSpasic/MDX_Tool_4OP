@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="12"/>
+    <BuildModes Active="Release Win x64">
+      <Item Name="Release FreeBSD x64">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="bin\FreeBSD_x64\MDX_Hash_Test_4OP"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="ext\HashLib\Base;ext\HashLib\Interfaces;ext\HashLib\Utils;ext\HashLib\KDF;ext\HashLib\Nullable;ext\HashLib\NullDigest;ext\HashLib\Checksum;ext\HashLib\Crypto;ext\HashLib\Hash32;ext\HashLib\Hash64;ext\HashLib\Hash128;ext\HashLib\Crypto\Blake2BParams;ext\HashLib\Crypto\Blake2SParams;ext\HashLib\Interfaces\IBlake2BParams;ext\HashLib\Interfaces\IBlake2SParams;units"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="freebsd"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <DebugInfoType Value="dsDwarf2Set"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+          </Linking>
+        </CompilerOptions>
+      </Item>
+      <Item Name="Release Darwin x64">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="bin\Darwin\MDX_Hash_Test_4OP"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="ext\HashLib\Base;ext\HashLib\Interfaces;ext\HashLib\Utils;ext\HashLib\KDF;ext\HashLib\Nullable;ext\HashLib\NullDigest;ext\HashLib\Checksum;ext\HashLib\Crypto;ext\HashLib\Hash32;ext\HashLib\Hash64;ext\HashLib\Hash128;ext\HashLib\Crypto\Blake2BParams;ext\HashLib\Crypto\Blake2SParams;ext\HashLib\Interfaces\IBlake2BParams;ext\HashLib\Interfaces\IBlake2SParams;units"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="darwin"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <DebugInfoType Value="dsDwarf2Set"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+          </Linking>
+        </CompilerOptions>
+      </Item>
+    </BuildModes>
+    <ManyBuildModesSelection Value="Debug,&quot;Release Win64&quot;"/>
+    <Units>
+      <Unit>
+        <Filename Value="MDX_Hash_Test_4OP.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="12" Y="10"/>
+        <UsageCount Value="129"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="units\untUtils.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="11"/>
+        <CursorPos X="23" Y="128"/>
+        <UsageCount Value="91"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="units\untDXUtils.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="78"/>
+        <CursorPos X="86" Y="95"/>
+        <UsageCount Value="89"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="untDXObjInterface.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="708"/>
+        <CursorPos X="29" Y="727"/>
+        <UsageCount Value="97"/>
+      </Unit>
+      <Unit>
+        <Filename Value="untDXUtils.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="84"/>
+        <CursorPos X="35" Y="103"/>
+        <UsageCount Value="33"/>
+      </Unit>
+      <Unit>
+        <Filename Value="untDX7Voice.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="11"/>
+        <CursorPos X="50" Y="32"/>
+        <UsageCount Value="22"/>
+      </Unit>
+      <Unit>
+        <Filename Value="units\untDX7Voice.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="862"/>
+        <CursorPos X="38" Y="865"/>
+        <UsageCount Value="43"/>
+      </Unit>
+      <Unit>
+        <Filename Value="units\untDX7IISupplement.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="136"/>
+        <CursorPos X="81" Y="149"/>
+        <UsageCount Value="4"/>
+      </Unit>
+      <Unit>
+        <Filename Value="units\untTX7Function.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="212"/>
+        <CursorPos X="79" Y="225"/>
+        <UsageCount Value="4"/>
+      </Unit>
+      <Unit>
+        <Filename Value="units\untMDXSupplement.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="90"/>
+        <CursorPos X="78" Y="105"/>
+        <UsageCount Value="4"/>
+      </Unit>
+      <Unit>
+        <Filename Value="ext\HashLib\Base\HlpHashFactory.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="3" Y="16"/>
+        <UsageCount Value="3"/>
+      </Unit>
+      <Unit>
+        <Filename Value="ext\HashLib\Interfaces\HlpIHash.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="3" Y="10"/>
+        <UsageCount Value="3"/>
+      </Unit>
+      <Unit>
+        <Filename Value="ext\HashLib\Interfaces\HlpIHashInfo.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="3" Y="12"/>
+        <UsageCount Value="3"/>
+      </Unit>
+      <Unit>
+        <Filename Value="ext\HashLib\Crypto\HlpBlake2B.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="3" Y="13"/>
+        <UsageCount Value="3"/>
+      </Unit>
+      <Unit>
+        <Filename Value="units\untDX7Bank.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="3" Y="73"/>
+        <UsageCount Value="44"/>
+      </Unit>
+      <Unit>
+        <Filename Value="units\untParConst.pas"/>
+        <EditorIndex Value="3"/>
+        <CursorPos X="10" Y="330"/>
+        <UsageCount Value="37"/>
+        <Loaded Value="True"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="-1"/>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode="default">
+        <Mode Name="default">
+          <local>
+            <CommandLineParams Value="-m -f Trombones_(5).syx"/>
+            <WorkingDirectory Value="C:\Users\Administrator\Documents\Lazarus\MDX_Tool\bin\Debug"/>
+          </local>
+        </Mode>
+      </Modes>
+    </RunParams>
+    <HistoryLists>
+      <List Name="WorkingDirectory" Type="File" Count="5">
+        <Item1 Value="C:\Users\Administrator\Documents\Lazarus\MDX_Tool\bin\Debug"/>
+        <Item2 Value="C:\Users\Administrator\Documents\Lazarus\MDX_Tool\bin\Win_x64"/>
+        <Item3 Value="C:\Users\User\Documents\Lazarus\MDX_Tool"/>
+        <Item4 Value="C:\Users\User\Documents\Lazarus\MDX_Tool\bin\Debug"/>
+        <Item5 Value="C:\Users\Administrator\Documents\Lazarus\MDX_Tool"/>
+      </List>
+      <List Name="LaunchingApplication" Type="File" Count="1">
+        <Item1 Value="C:\WINDOWS\system32\cmd.exe /C ${TargetCmdLine}"/>
+      </List>
+      <List Name="CommandLineParameters" Count="7">
+        <Item1 Value="-m -f Trombones_(5).syx"/>
+        <Item2 Value="-i -f tx52.syx"/>
+        <Item3 Value="-i -f BUCK-1.SYX"/>
+        <Item4 Value="-i -f DMC-1.SYX"/>
+        <Item5 Value="-r -f DMC-1.SYX"/>
+        <Item6 Value="-r -f BUCK-1.SYX"/>
+        <Item7 Value="-i -r BUCK-1.SYX"/>
+      </List>
+    </HistoryLists>
+  </ProjectSession>
+  <Debugging>
+    <Watches>
+      <Item>
+        <Expression Value="fBank"/>
+      </Item>
+    </Watches>
+  </Debugging>
+</CONFIG>
