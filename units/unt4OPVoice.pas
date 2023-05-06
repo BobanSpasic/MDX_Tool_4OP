@@ -407,47 +407,6 @@ type
     AMEM3: T4OP_AVMEM3_Params;
   end;
 
-const
-  VCED_init: array [0..93] of byte =
-    (31, 31, 00, 15, 15, 00, 00, 00, 00, 00, 00, 04, 03,
-    31, 31, 00, 15, 15, 00, 00, 00, 00, 00, 00, 04, 03,
-    31, 31, 00, 15, 15, 00, 00, 00, 00, 00, 00, 04, 03,
-    31, 31, 00, 15, 15, 00, 00, 00, 00, 00, 90, 04, 03,
-    00, 00, 35, 00, 00, 00, 00, 02, 06, 00, 24,
-    00, 04, 00, 00, 40, 01, 00, 00, 50, 00, 00, 00, 50, 00,
-    73, 78, 73, 84, 32, 86, 79, 73, 67, 69,
-    99, 99, 99, 50, 50, 50, 15);
-
-  ACED_init: array [0..22] of byte =
-    (00, 00, 00, 00, 00, 00, 00, 00, 00, 00,
-    00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00);
-
-  ACED2_init: array [0..9] of byte =
-    (00, 00, 50, 00, 00, 00, 00, 00, 00, 00);
-
-  ACED3_init: array [0..19] of byte =
-    (00, 50, 100, 00, 00, 00, 00, 00, 00, 00,
-    00, 00, 00, 00, 00, 00, 00, 00, 00, 00);
-
-  DELAY_init: array [0..1] of byte =
-    (00, 00);
-
-  EFEDS_init: array [0..2] of byte =
-    (00, 00, 50);
-
-  VMEM_init: array [0..72] of byte =
-    (31, 31, 00, 15, 15, 00, 00, 00, 04, 03, 31, 31, 00, 15, 15, 00,
-    00, 00, 04, 03, 31, 31, 00, 15, 15, 00, 00, 00, 04, 03, 31, 31,
-    00, 15, 15, 00, 00, 90, 04, 03, 00, 35, 00, 00, 00, 98, 24, 04,
-    04, 00, 40, 50, 00, 00, 00, 50, 00, 73, 78, 73, 84, 32, 86, 79,
-    73, 67, 69, 99, 99, 99, 50, 50, 50);
-  AMEM_init: array [0..10] of byte =
-    (00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00);
-  AMEM3_init: array [0..43] of byte =
-    (00, 00, 00, 00, 00, 00, 00, 00, 00, 50, 00, 50, 100, 00, 00, 00,
-    00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00,
-    00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00);
-
 type
   T4OPVoiceContainer = class(TPersistent)
   private
@@ -499,10 +458,6 @@ var
   t: T4OP_V50_VMEM_Params;
   sign: integer;
 begin
-  t.VMEM.params := VMEM_init;
-  t.AMEM.params := AMEM_init;
-  t.AMEM3.params := AMEM3_init;
-
   //first the parameters without conversion
   t.VMEM.OP4_Attack_Rate := aPar.VCED.OP4_Attack_Rate and 31;
   t.VMEM.OP4_Decay_1_Rate := aPar.VCED.OP4_Decay_1_Rate and 31;
@@ -692,13 +647,6 @@ var
   kvs1, kvs2: byte;
   b0, b1, b2, b3: byte;
 begin
-  t.VCED.params := VCED_init;
-  t.ACED.params := ACED_init;
-  t.ACED2.params := ACED2_init;
-  t.ACED3.params := ACED3_init;
-  t.EFEDS.params := EFEDS_init;
-  t.DELAY.params := DELAY_init;
-
   t.VCED.OP4_Attack_Rate := aPar.VMEM.OP4_Attack_Rate and 31;
   t.VCED.OP4_Decay_1_Rate := aPar.VMEM.OP4_Decay_1_Rate and 31;
   t.VCED.OP4_Decay_2_Rate := aPar.VMEM.OP4_Decay_2_Rate and 31;
@@ -955,9 +903,10 @@ begin
   end;
 end;
 
-function T4OPVoiceContainer.Load_ACED_FromStream(var aStream: TMemoryStream; aPos: integer): boolean;
+function T4OPVoiceContainer.Load_ACED_FromStream(var aStream: TMemoryStream;
+  aPos: integer): boolean;
 var
-  i: Integer;
+  i: integer;
 begin
   Result := False;
   if (aPos + 22) <= aStream.Size then
@@ -974,9 +923,10 @@ begin
   end;
 end;
 
-function T4OPVoiceContainer.Load_ACED2_FromStream(var aStream: TMemoryStream; aPos: integer): boolean;
+function T4OPVoiceContainer.Load_ACED2_FromStream(var aStream: TMemoryStream;
+  aPos: integer): boolean;
 var
-  i: Integer;
+  i: integer;
 begin
   Result := False;
   if (aPos + 9) <= aStream.Size then
@@ -993,9 +943,10 @@ begin
   end;
 end;
 
-function T4OPVoiceContainer.Load_ACED3_FromStream(var aStream: TMemoryStream; aPos: integer): boolean;
+function T4OPVoiceContainer.Load_ACED3_FromStream(var aStream: TMemoryStream;
+  aPos: integer): boolean;
 var
-  i: Integer;
+  i: integer;
 begin
   Result := False;
   InitVoice;
@@ -1015,12 +966,12 @@ end;
 
 procedure T4OPVoiceContainer.InitVoice;
 begin
-  F4OP_V50_VCED_Params.VCED.params := VCED_init;
-  F4OP_V50_VCED_Params.ACED.params := ACED_init;
-  F4OP_V50_VCED_Params.ACED2.params := ACED2_init;
-  F4OP_V50_VCED_Params.ACED3.params := ACED3_init;
-  F4OP_V50_VCED_Params.DELAY.params := DELAY_init;
-  F4OP_V50_VCED_Params.EFEDS.params := EFEDS_init;
+  GetDefinedValues(V50VCED, fInit, F4OP_V50_VCED_Params.VCED.params);
+  GetDefinedValues(V50ACED, fInit, F4OP_V50_VCED_Params.ACED.params);
+  GetDefinedValues(V50ACED2, fInit, F4OP_V50_VCED_Params.ACED2.params);
+  GetDefinedValues(V50ACED3, fInit, F4OP_V50_VCED_Params.ACED3.params);
+  GetDefinedValues(DS55, fInit, F4OP_V50_VCED_Params.DELAY.params);
+  GetDefinedValues(YS, fInit, F4OP_V50_VCED_Params.EFEDS.params);
 
   F4OP_V50_VMEM_Params := VCEDtoVMEM(F4OP_V50_VCED_Params);
 end;
@@ -1275,25 +1226,107 @@ end;
 
 function T4OPVoiceContainer.CheckMinMax(var slReport: TStringList): boolean;
 var
-  arMin: array [0..155] of byte;
-  arMax: array [0..155] of byte;
+  arMin: array of byte;
+  arMax: array of byte;
   i: integer;
 begin
- { //normalize - set the values inside the limits
-  GetDefinedValues(DX7, fMin, arMin);
-  GetDefinedValues(DX7, fMax, arMax);
   Result := True;
-  for i := 0 to 155 do
+
+  SetLength(arMin, 93);
+  SetLength(arMax, 93);
+  GetDefinedValues(V50VCED, fMin, arMin);
+  GetDefinedValues(V50VCED, fMax, arMax);
+  for i := 0 to 92 do
   begin
-    if (FDX7_VCED_Params.params[i] < arMin[i]) or
-      (FDX7_VCED_Params.params[i] > arMax[i]) then
+    if (F4OP_V50_VCED_Params.VCED.params[i] < arMin[i]) or
+      (F4OP_V50_VCED_Params.VCED.params[i] > arMax[i]) then
     begin
       Result := False;
-      slReport.Add('Parameter ' + DX7_VCED_NAMES[i, 0] + ' has value ' +
-        IntToStr(FDX7_VCED_Params.params[i]) + '. Allowed range is [' +
+      slReport.Add('Parameter ' + V50_VCED_NAMES[i, 0] + ' has value ' +
+        IntToStr(F4OP_V50_VCED_Params.VCED.params[i]) + '. Allowed range is [' +
         IntToStr(arMin[i]) + ',' + IntToStr(arMax[i]) + ']');
     end;
-  end;}
+  end;
+
+  SetLength(arMin, 23);
+  SetLength(arMax, 23);
+  GetDefinedValues(V50ACED, fMin, arMin);
+  GetDefinedValues(V50ACED, fMax, arMax);
+  for i := 0 to 22 do
+  begin
+    if (F4OP_V50_VCED_Params.ACED.params[i] < arMin[i]) or
+      (F4OP_V50_VCED_Params.ACED.params[i] > arMax[i]) then
+    begin
+      Result := False;
+      slReport.Add('Parameter ' + V50_ACED_NAMES[i, 0] + ' has value ' +
+        IntToStr(F4OP_V50_VCED_Params.ACED.params[i]) + '. Allowed range is [' +
+        IntToStr(arMin[i]) + ',' + IntToStr(arMax[i]) + ']');
+    end;
+  end;
+
+  SetLength(arMin, 10);
+  SetLength(arMax, 10);
+  GetDefinedValues(V50ACED2, fMin, arMin);
+  GetDefinedValues(V50ACED2, fMax, arMax);
+  for i := 0 to 9 do
+  begin
+    if (F4OP_V50_VCED_Params.ACED2.params[i] < arMin[i]) or
+      (F4OP_V50_VCED_Params.ACED2.params[i] > arMax[i]) then
+    begin
+      Result := False;
+      slReport.Add('Parameter ' + V50_ACED2_NAMES[i, 0] + ' has value ' +
+        IntToStr(F4OP_V50_VCED_Params.ACED2.params[i]) + '. Allowed range is [' +
+        IntToStr(arMin[i]) + ',' + IntToStr(arMax[i]) + ']');
+    end;
+  end;
+
+  SetLength(arMin, 20);
+  SetLength(arMax, 20);
+  GetDefinedValues(V50ACED3, fMin, arMin);
+  GetDefinedValues(V50ACED3, fMax, arMax);
+  for i := 0 to 19 do
+  begin
+    if (F4OP_V50_VCED_Params.ACED3.params[i] < arMin[i]) or
+      (F4OP_V50_VCED_Params.ACED3.params[i] > arMax[i]) then
+    begin
+      Result := False;
+      slReport.Add('Parameter ' + V50_ACED3_NAMES[i, 0] + ' has value ' +
+        IntToStr(F4OP_V50_VCED_Params.ACED3.params[i]) + '. Allowed range is [' +
+        IntToStr(arMin[i]) + ',' + IntToStr(arMax[i]) + ']');
+    end;
+  end;
+
+  SetLength(arMin, 2);
+  SetLength(arMax, 2);
+  GetDefinedValues(DS55, fMin, arMin);
+  GetDefinedValues(DS55, fMax, arMax);
+  for i := 0 to 1 do
+  begin
+    if (F4OP_V50_VCED_Params.DELAY.params[i] < arMin[i]) or
+      (F4OP_V50_VCED_Params.DELAY.params[i] > arMax[i]) then
+    begin
+      Result := False;
+      slReport.Add('Parameter ' + DS55_DELAY_NAMES[i, 0] + ' has value ' +
+        IntToStr(F4OP_V50_VCED_Params.DELAY.params[i]) + '. Allowed range is [' +
+        IntToStr(arMin[i]) + ',' + IntToStr(arMax[i]) + ']');
+    end;
+  end;
+
+  SetLength(arMin, 3);
+  SetLength(arMax, 3);
+  GetDefinedValues(YS, fMin, arMin);
+  GetDefinedValues(YS, fMax, arMax);
+  for i := 0 to 2 do
+  begin
+    if (F4OP_V50_VCED_Params.EFEDS.params[i] < arMin[i]) or
+      (F4OP_V50_VCED_Params.EFEDS.params[i] > arMax[i]) then
+    begin
+      Result := False;
+      slReport.Add('Parameter ' + YS_EFEDS_NAMES[i, 0] + ' has value ' +
+        IntToStr(F4OP_V50_VCED_Params.EFEDS.params[i]) + '. Allowed range is [' +
+        IntToStr(arMin[i]) + ',' + IntToStr(arMax[i]) + ']');
+    end;
+  end;
 end;
 
 function T4OPVoiceContainer.HasNullInName: boolean;
@@ -1313,20 +1346,83 @@ end;
 
 procedure T4OPVoiceContainer.Normalize;
 var
-  arMin: array [0..155] of byte;
-  arMax: array [0..155] of byte;
+  arMin: array of byte;
+  arMax: array of byte;
   i: integer;
 begin
-  {GetDefinedValues(DX7, fMin, arMin);
-  GetDefinedValues(DX7, fMax, arMax);
-  for i := 0 to 155 do
+  SetLength(arMin, 93);
+  SetLength(arMax, 93);
+  GetDefinedValues(V50VCED, fMin, arMin);
+  GetDefinedValues(V50VCED, fMax, arMax);
+  for i := 0 to 92 do
   begin
-    if FDX7_VCED_Params.params[i] < arMin[i] then
-      FDX7_VCED_Params.params[i] := arMin[i];
-    if FDX7_VCED_Params.params[i] > arMax[i] then
-      FDX7_VCED_Params.params[i] := arMax[i];
+    if F4OP_V50_VCED_Params.VCED.params[i] < arMin[i] then
+      F4OP_V50_VCED_Params.VCED.params[i] := arMin[i];
+    if F4OP_V50_VCED_Params.VCED.params[i] > arMax[i] then
+      F4OP_V50_VCED_Params.VCED.params[i] := arMax[i];
   end;
-  FDX7_VMEM_Params := VCEDtoVMEM(FDX7_VCED_Params); }
+
+  SetLength(arMin, 23);
+  SetLength(arMax, 23);
+  GetDefinedValues(V50ACED, fMin, arMin);
+  GetDefinedValues(V50ACED, fMax, arMax);
+  for i := 0 to 22 do
+  begin
+    if F4OP_V50_VCED_Params.ACED.params[i] < arMin[i] then
+      F4OP_V50_VCED_Params.ACED.params[i] := arMin[i];
+    if F4OP_V50_VCED_Params.ACED.params[i] > arMax[i] then
+      F4OP_V50_VCED_Params.ACED.params[i] := arMax[i];
+  end;
+
+  SetLength(arMin, 10);
+  SetLength(arMax, 10);
+  GetDefinedValues(V50ACED2, fMin, arMin);
+  GetDefinedValues(V50ACED2, fMax, arMax);
+  for i := 0 to 9 do
+  begin
+    if F4OP_V50_VCED_Params.ACED2.params[i] < arMin[i] then
+      F4OP_V50_VCED_Params.ACED2.params[i] := arMin[i];
+    if F4OP_V50_VCED_Params.ACED2.params[i] > arMax[i] then
+      F4OP_V50_VCED_Params.ACED2.params[i] := arMax[i];
+  end;
+
+  SetLength(arMin, 20);
+  SetLength(arMax, 20);
+  GetDefinedValues(V50ACED3, fMin, arMin);
+  GetDefinedValues(V50ACED3, fMax, arMax);
+  for i := 0 to 19 do
+  begin
+    if F4OP_V50_VCED_Params.ACED3.params[i] < arMin[i] then
+      F4OP_V50_VCED_Params.ACED3.params[i] := arMin[i];
+    if F4OP_V50_VCED_Params.ACED3.params[i] > arMax[i] then
+      F4OP_V50_VCED_Params.ACED3.params[i] := arMax[i];
+  end;
+
+  SetLength(arMin, 2);
+  SetLength(arMax, 2);
+  GetDefinedValues(DS55, fMin, arMin);
+  GetDefinedValues(DS55, fMax, arMax);
+  for i := 0 to 1 do
+  begin
+    if F4OP_V50_VCED_Params.DELAY.params[i] < arMin[i] then
+      F4OP_V50_VCED_Params.DELAY.params[i] := arMin[i];
+    if F4OP_V50_VCED_Params.DELAY.params[i] > arMax[i] then
+      F4OP_V50_VCED_Params.DELAY.params[i] := arMax[i];
+  end;
+
+  SetLength(arMin, 3);
+  SetLength(arMax, 3);
+  GetDefinedValues(YS, fMin, arMin);
+  GetDefinedValues(YS, fMax, arMax);
+  for i := 0 to 2 do
+  begin
+    if F4OP_V50_VCED_Params.EFEDS.params[i] < arMin[i] then
+      F4OP_V50_VCED_Params.EFEDS.params[i] := arMin[i];
+    if F4OP_V50_VCED_Params.EFEDS.params[i] > arMax[i] then
+      F4OP_V50_VCED_Params.EFEDS.params[i] := arMax[i];
+  end;
+
+  F4OP_V50_VMEM_Params := VCEDtoVMEM(F4OP_V50_VCED_Params);
 end;
 
 end.

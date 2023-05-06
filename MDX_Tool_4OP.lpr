@@ -7,7 +7,7 @@
  Author: Boban Spasic
 
  Program description:
- This program can get some info from Yamaha TX81z SysEx files. The info is more about the integrity/corruption of the files.
+ This program can get some info from Yamaha 4OP SysEx files. The info is more about the integrity/corruption of the files.
  Second aspect of the program is to repair some of the common corrupted files found on the internet.
  Third aspect (not yet implemented) will be the conversion from VMEM to VCED and vice-versa.
 }

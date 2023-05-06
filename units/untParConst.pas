@@ -21,10 +21,364 @@ uses
   Classes, SysUtils, Math;
 
 type
-  TValMatrix  = (fMin, fMax, fInit);
-  TTypeMatrix = (DX7, DX7II, TX7, MDX);
+  TValMatrix = (fMin, fMax, fInit);
+  TTypeMatrix = (DX7, DX7II, TX7, MDX, V50VCED, V50ACED, V50ACED2, V50ACED3, DS55, YS);
 
 const
+  V50_VCED_NAMES: array[0..93, 0..1] of string = (
+    ('OP4_Attack_Rate', 'OP4_AR'),
+    ('OP4_Decay_1_Rate', 'OP4_D1R'),
+    ('OP4_Decay_2_Rate', 'OP4_D2R'),
+    ('OP4_Release_Rate', 'OP4_RR'),
+    ('OP4_Decay_1_Level', 'OP4_D1L'),
+    ('OP4_Level_Scaling', 'OP4_LS'),
+    ('OP4_Rate_Scaling', 'OP4_RS'),
+    ('OP4_EG_Bias_Sensitivity', 'OP4_EBS'),
+    ('OP4_AM_Enable', 'OP4_AME'),
+    ('OP4_Key_Velocity_Sensitivity', 'OP4_KVS'),
+    ('OP4_Operator_Output_Level', 'OP4_OUT'),
+    ('OP4_Frequency', 'OP4_CRS'),
+    ('OP4_Detune', 'OP4_DET'),
+
+    ('OP3_Attack_Rate', 'OP3_AR'),
+    ('OP3_Decay_1_Rate', 'OP3_D1R'),
+    ('OP3_Decay_2_Rate', 'OP3_D2R'),
+    ('OP3_Release_Rate', 'OP3_RR'),
+    ('OP3_Decay_1_Level', 'OP3_D1L'),
+    ('OP3_Level_Scaling', 'OP3_LS'),
+    ('OP3_Rate_Scaling', 'OP3_RS'),
+    ('OP3_EG_Bias_Sensitivity', 'OP3_EBS'),
+    ('OP3_AM_Enable', 'OP3_AME'),
+    ('OP3_Key_Velocity_Sensitivity', 'OP3_KVS'),
+    ('OP3_Operator_Output_Level', 'OP3_OUT'),
+    ('OP3_Frequency', 'OP3_CRS'),
+    ('OP3_Detune', 'OP3_DET'),
+
+    ('OP2_Attack_Rate', 'OP2_AR'),
+    ('OP2_Decay_1_Rate', 'OP2_D1R'),
+    ('OP2_Decay_2_Rate', 'OP2_D2R'),
+    ('OP2_Release_Rate', 'OP2_RR'),
+    ('OP2_Decay_1_Level', 'OP2_D1L'),
+    ('OP2_Level_Scaling', 'OP2_LS'),
+    ('OP2_Rate_Scaling', 'OP2_RS'),
+    ('OP2_EG_Bias_Sensitivity', 'OP2_EBS'),
+    ('OP2_AM_Enable', 'OP2_AME'),
+    ('OP2_Key_Velocity_Sensitivity', 'OP2_KVS'),
+    ('OP2_Operator_Output_Level', 'OP2_OUT'),
+    ('OP2_Frequency', 'OP2_CRS'),
+    ('OP2_Detune', 'OP2_DET'),
+
+    ('OP1_Attack_Rate', 'OP1_AR'),
+    ('OP1_Decay_1_Rate', 'OP1_D1R'),
+    ('OP1_Decay_2_Rate', 'OP1_D2R'),
+    ('OP1_Release_Rate', 'OP1_RR'),
+    ('OP1_Decay_1_Level', 'OP1_D1L'),
+    ('OP1_Level_Scaling', 'OP1_LS'),
+    ('OP1_Rate_Scaling', 'OP1_RS'),
+    ('OP1_EG_Bias_Sensitivity', 'OP1_EBS'),
+    ('OP1_AM_Enable', 'OP1_AME'),
+    ('OP1_Key_Velocity_Sensitivity', 'OP1_KVS'),
+    ('OP1_Operator_Output_Level', 'OP1_OUT'),
+    ('OP1_Frequency', 'OP1_CRS'),
+    ('OP1_Detune', 'OP1_DET'),
+
+    ('Algorithm', 'ALG'),
+    ('Feedback', 'FBL'),
+    ('LFO_Speed', 'LFS'),
+    ('LFO_Delay', 'LFD'),
+    ('Pitch_Mod_Depth', 'PMD'),
+    ('Amplitude_Mod_Depth', 'AMD'),
+    ('LFO_Sync', 'SY'),
+    ('LFO_Wave', 'LFW'),
+    ('Pitch_Mod_Sens', 'PMS'),
+    ('Amplitude_Mod_Sens', 'AMS'),
+    ('Transpose', 'TRPS'),
+
+    ('Poly/Mono', 'MONO'),
+    ('Pitch_Bend_Range', 'PBR'),
+    ('Portamento_Mode', 'PM'),
+    ('Portamento_Time', 'PORT'),
+    ('FC_Volume', 'FC_VOL'),
+    ('Sustain', 'SU'),
+    ('Portamento', 'PO'),
+    ('Chorus', 'CH'),
+    ('MW_Pitch', 'MW_PITCH'),
+    ('MW_Amplitude', 'MW_AMPLI'),
+    ('BC_Pitch', 'BC_PITCH'),
+    ('Bc_Amplitude', 'BC_AMPLI'),
+    ('BC_Pitch_Bias', 'BC_P_BIAS'),
+    ('BC_EG_Bias', 'BC_E_BIAS'),
+    ('PEG_Range_1', 'PR1'),
+    ('PEG_Range_2', 'PR2'),
+    ('PEG_Range_3', 'PR3'),
+    ('PEG_Level_1', 'PL1'),
+    ('PEG_Level_2', 'PL2'),
+    ('PEG_Level_3', 'PL3'),
+    ('VOICE_NAME_CHAR_1', 'VNAM1'),
+    ('VOICE_NAME_CHAR_2', 'VNAM2'),
+    ('VOICE_NAME_CHAR_3', 'VNAM3'),
+    ('VOICE_NAME_CHAR_4', 'VNAM4'),
+    ('VOICE_NAME_CHAR_5', 'VNAM5'),
+    ('VOICE_NAME_CHAR_6', 'VNAM6'),
+    ('VOICE_NAME_CHAR_7', 'VNAM7'),
+    ('VOICE_NAME_CHAR_8', 'VNAM8'),
+    ('VOICE_NAME_CHAR_9', 'VNAM9'),
+    ('VOICE_NAME_CHAR_10', 'VNAM10'),
+    ('OPERATOR_ON_OFF', 'OPE')  //Parameter Change only
+    );
+
+  V50_VCED_MIN_MAX_INT: array [0..93, 0..2] of byte = (
+    (00, 31, 31),
+    (00, 31, 31),
+    (00, 31, 00),
+    (01, 15, 15),
+    (00, 15, 15),
+    (00, 99, 00),
+    (00, 03, 00),
+    (00, 07, 00),
+    (00, 01, 00),
+    (00, 07, 00),
+    (00, 99, 00),
+    (00, 63, 04),
+    (00, 06, 03),
+
+    (00, 31, 31),
+    (00, 31, 31),
+    (00, 31, 00),
+    (01, 15, 15),
+    (00, 15, 15),
+    (00, 99, 00),
+    (00, 03, 00),
+    (00, 07, 00),
+    (00, 01, 00),
+    (00, 07, 00),
+    (00, 99, 00),
+    (00, 63, 04),
+    (00, 06, 03),
+
+    (00, 31, 31),
+    (00, 31, 31),
+    (00, 31, 00),
+    (01, 15, 15),
+    (00, 15, 15),
+    (00, 99, 00),
+    (00, 03, 00),
+    (00, 07, 00),
+    (00, 01, 00),
+    (00, 07, 00),
+    (00, 99, 00),
+    (00, 63, 04),
+    (00, 06, 03),
+
+    (00, 31, 31),
+    (00, 31, 31),
+    (00, 31, 00),
+    (01, 15, 15),
+    (00, 15, 15),
+    (00, 99, 00),
+    (00, 03, 00),
+    (00, 07, 00),
+    (00, 01, 00),
+    (00, 07, 00),
+    (00, 99, 90),
+    (00, 63, 04),
+    (00, 06, 03),
+
+    (00, 07, 00),
+    (00, 07, 00),
+    (00, 99, 35),
+    (01, 99, 00),
+    (00, 99, 00),
+    (00, 99, 00),
+    (00, 01, 00),
+    (00, 03, 02),
+    (00, 07, 06),
+    (00, 03, 00),
+    (00, 48, 24),
+
+    (00, 01, 00),
+    (00, 12, 04),
+    (00, 01, 00),
+    (01, 99, 00),
+    (00, 99, 40),
+    (00, 01, 01),
+    (00, 01, 00),
+    (00, 01, 00),
+    (00, 99, 50),
+    (00, 99, 00),
+    (00, 99, 00),
+    (00, 99, 00),
+    (00, 99, 50),
+    (00, 99, 00),
+    (32, 126, 73),
+    (32, 126, 78),
+    (32, 126, 73),
+    (32, 126, 84),
+    (32, 126, 32),
+    (32, 126, 86),
+    (32, 126, 79),
+    (32, 126, 73),
+    (32, 126, 67),
+    (32, 126, 69),
+    (00, 99, 99),
+    (00, 99, 99),
+    (00, 99, 99),
+    (00, 99, 50),
+    (00, 99, 50),
+    (00, 99, 50),
+    (00, 15, 15)
+    );
+
+  V50_ACED_NAMES: array[0..22, 0..1] of string = (
+    ('OP4_Fixed_Freq', 'OP4_FIX'),
+    ('OP4_Fixed_Freq_Range', 'OP4_FIXRG'),
+    ('OP4_Freq_Range_Fine', 'OP4_FIN'),
+    ('OP4_Operator_Waveform', 'OP4_OPW'),
+    ('OP4_EG_Shift', 'OP4_EGSFT'),
+
+    ('OP3_Fixed_Freq', 'OP3_FIX'),
+    ('OP3_Fixed_Freq_Range', 'OP3_FIXRG'),
+    ('OP3_Freq_Range_Fine', 'OP3_FIN'),
+    ('OP3_Operator_Waveform', 'OP3_OPW'),
+    ('OP3_EG_Shift', 'OP3_EGSFT'),
+
+    ('OP2_Fixed_Freq', 'OP2_FIX'),
+    ('OP2_Fixed_Freq_Range', 'OP2_FIXRG'),
+    ('OP2_Freq_Range_Fine', 'OP2_FIN'),
+    ('OP2_Operator_Waveform', 'OP2_OPW'),
+    ('OP2_EG_Shift', 'OP2_EGSFT'),
+
+    ('OP1_Fixed_Freq', 'OP1_FIX'),
+    ('OP1_Fixed_Freq_Range', 'OP1_FIXRG'),
+    ('OP1_Freq_Range_Fine', 'OP1_FIN'),
+    ('OP1_Operator_Waveform', 'OP1_OPW'),
+    ('OP1_EG_Shift', 'OP1_EGSFT'),
+
+    ('Reverb_Rate', 'REV'),
+    ('FC_Pitch', 'FC_PITCH'),
+    ('FC_Amplitude', 'FC_AMPLI')
+    );
+
+  V50_ACED_MIN_MAX_INT: array [0..22, 0..2] of byte = (
+    (00, 01, 00),
+    (00, 07, 00),
+    (00, 15, 00),
+    (00, 07, 00),
+    (00, 03, 00),
+    (00, 01, 00),
+    (00, 07, 00),
+    (00, 15, 00),
+    (00, 07, 00),
+    (00, 03, 00),
+    (00, 01, 00),
+    (00, 07, 00),
+    (00, 15, 00),
+    (00, 07, 00),
+    (00, 03, 00),
+    (00, 01, 00),
+    (00, 07, 00),
+    (00, 15, 00),
+    (00, 07, 00),
+    (00, 03, 00),
+    (00, 07, 00),
+    (00, 99, 00),
+    (00, 99, 00)
+    );
+
+  V50_ACED2_NAMES: array [0..9, 0..1] of string = (
+    ('AT_Pitch', 'AT_PITCH'),
+    ('AT_Amplitude', 'AT_AMPLI'),
+    ('AT_Pitch_Bias', 'AT_P_BIAS'),
+    ('AT_EG_Bias', 'AT_EG_BIAS'),
+    ('OP4_Fix_Range_Mode', 'OP4_FIXRM'),
+    ('OP3_Fix_Range_Mode', 'OP3_FIXRM'),
+    ('OP2_Fix_Range_Mode', 'OP2_FIXRM'),
+    ('OP1_Fix_Range_Mode', 'OP1_FIXRM'),
+    ('LS_Sign', 'LS2'),
+    ('Reserved', 'RESERVED')
+    );
+
+  V50_ACED2_MIN_MAX_INT: array [0..9, 0..2] of byte = (
+    (00, 99, 00),
+    (00, 99, 00),
+    (00, 100, 50),
+    (00, 99, 00),
+    (00, 01, 00),
+    (00, 01, 00),
+    (00, 01, 00),
+    (00, 01, 00),
+    (00, 15, 00),
+    (00, 99, 00)
+    );
+
+  V50_ACED3_NAMES: array [0..19, 0..1] of string = (
+    ('Effect_Select', 'EFCT_SEL'),
+    ('Balance', 'BALANCE'),
+    ('Out_Level', 'OUT_LEVEL'),
+    ('Stereo_Mix', 'STEREO_MIX'),
+    ('Effect_Param1', 'EFCT_PARAM1'),
+    ('Effect_Param2', 'EFCT_PARAM2'),
+    ('Effect_Param3', 'EFCT_PARAM3'),
+    ('Reserved', 'RESERVED'),
+    ('Reserved', 'RESERVED'),
+    ('Reserved', 'RESERVED'),
+    ('Reserved', 'RESERVED'),
+    ('Reserved', 'RESERVED'),
+    ('Reserved', 'RESERVED'),
+    ('Reserved', 'RESERVED'),
+    ('Reserved', 'RESERVED'),
+    ('Reserved', 'RESERVED'),
+    ('Reserved', 'RESERVED'),
+    ('Reserved', 'RESERVED'),
+    ('Reserved', 'RESERVED'),
+    ('Reserved', 'RESERVED')
+    );
+
+  V50_ACED3_MIN_MAX_INT: array [0..19, 0..2] of byte = (
+    (00, 32, 00),
+    (00, 100, 50),
+    (00, 100, 100),
+    (00, 01, 00),
+    (00, 75, 00),
+    (00, 99, 00),
+    (00, 99, 00),
+    (00, 99, 00),
+    (00, 99, 00),
+    (00, 99, 00),
+    (00, 99, 00),
+    (00, 99, 00),
+    (00, 99, 00),
+    (00, 99, 00),
+    (00, 99, 00),
+    (00, 99, 00),
+    (00, 99, 00),
+    (00, 99, 00),
+    (00, 99, 00),
+    (00, 99, 00)
+    );
+
+  DS55_DELAY_NAMES: array [0..1, 0..1] of string = (
+    ('Switch', 'SW'),
+    ('Long_Short', 'S/L')
+    );
+
+  DS55_DELAY_MIN_MAX_INT: array [0..1, 0..2] of byte = (
+    (00, 01, 00),
+    (00, 01, 00)
+    );
+
+  YS_EFEDS_NAMES: array [0..2, 0..1] of string = (
+    ('Preset', 'EFCTP'),
+    ('Time', 'EFCTT'),
+    ('Balance', 'EFCTB')
+    );
+
+  YS_EFEDS_MIN_MAX_INT: array [0..2, 0..2] of byte = (
+    (00, 10, 00),
+    (00, 40, 00),
+    (00, 99, 50)
+    );
+
   DX7_VCED_NAMES: array [0..155, 0..1] of string = (
     ('OP6_EG_rate_1', 'OP6_R1'),
     ('OP6_EG_rate_2', 'OP6_R2'),
@@ -835,6 +1189,28 @@ const
   transNSH: integer = -24;
   transPAN: integer = -64;
 
+  //LM-types for 4OP voice parameters
+  {LM__8976AE    33 byte   ACED/AGED    TX81Z/DS55
+    LM__8023AE    20 byte   ACED2        DX11/YS
+    LM__8073AE    30 byte   ACED3        V50
+    LM__8976PE   120 byte   PCED         DX11
+    LM__8073PE    43 byte   PCED2        V50
+    LM__8976PM  2442 byte   PMEM         DX11
+    LM__8073PM   810 byte   PMEM2        V50
+    LM__8036EF    13 byte   EFEDS        YS
+    LM__8054DL    12 byte   DELAY        DS55 }
+  abLMType: array [0..8, 0..9] of byte = (
+    ($4C, $4D, $20, $20, $38, $39, $37, $36, $41, $45),    //LM  8976AE   ACED/AGED
+    ($4C, $4D, $20, $20, $38, $30, $32, $33, $41, $45),    //LM  8023AE
+    ($4C, $4D, $20, $20, $38, $30, $37, $33, $41, $45),    //LM  8073AE
+    ($4C, $4D, $20, $20, $38, $39, $37, $36, $50, $45),    //LM  8976PE
+    ($4C, $4D, $20, $20, $38, $30, $37, $33, $50, $45),    //LM  8073PE
+    ($4C, $4D, $20, $20, $38, $39, $37, $36, $50, $4D),    //LM  8976PM
+    ($4C, $4D, $20, $20, $38, $30, $37, $33, $50, $4D),    //LM  8073PM
+    ($4c, $4d, $20, $20, $38, $30, $33, $36, $45, $46),    //LM  8036EF
+    ($4c, $4d, $20, $20, $38, $30, $35, $34, $44, $4C)     //LM  8054DL
+    );
+
 function Freq_Ratio(coarse, fine: byte): float;
 function Freq_Fixed(coarse, fine: byte): float;
 function Nr2Note(Nr: byte): string;
@@ -943,6 +1319,90 @@ begin
           finit: begin
             for i := low(Ret) to high(Ret) do
               Ret[i] := MDX_PCEDx_MIN_MAX_INT[i][2];
+          end;
+        end;
+      V50VCED: case V of
+          fmin: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := V50_VCED_MIN_MAX_INT[i][0];
+          end;
+          fmax: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := V50_VCED_MIN_MAX_INT[i][1];
+          end;
+          finit: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := V50_VCED_MIN_MAX_INT[i][2];
+          end;
+        end;
+      V50ACED: case V of
+          fmin: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := V50_ACED_MIN_MAX_INT[i][0];
+          end;
+          fmax: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := V50_ACED_MIN_MAX_INT[i][1];
+          end;
+          finit: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := V50_ACED_MIN_MAX_INT[i][2];
+          end;
+        end;
+      V50ACED2: case V of
+          fmin: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := V50_ACED2_MIN_MAX_INT[i][0];
+          end;
+          fmax: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := V50_ACED2_MIN_MAX_INT[i][1];
+          end;
+          finit: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := V50_ACED2_MIN_MAX_INT[i][2];
+          end;
+        end;
+      V50ACED3: case V of
+          fmin: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := V50_ACED3_MIN_MAX_INT[i][0];
+          end;
+          fmax: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := V50_ACED3_MIN_MAX_INT[i][1];
+          end;
+          finit: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := V50_ACED3_MIN_MAX_INT[i][2];
+          end;
+        end;
+      DS55: case V of
+          fmin: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := DS55_DELAY_MIN_MAX_INT[i][0];
+          end;
+          fmax: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := DS55_DELAY_MIN_MAX_INT[i][1];
+          end;
+          finit: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := DS55_DELAY_MIN_MAX_INT[i][2];
+          end;
+        end;
+      YS: case V of
+          fmin: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := YS_EFEDS_MIN_MAX_INT[i][0];
+          end;
+          fmax: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := YS_EFEDS_MIN_MAX_INT[i][1];
+          end;
+          finit: begin
+            for i := low(Ret) to high(Ret) do
+              Ret[i] := YS_EFEDS_MIN_MAX_INT[i][2];
           end;
         end;
     end;

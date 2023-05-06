@@ -20,12 +20,12 @@ unit untDXUtils;
 interface
 
 uses
-  Classes, SysUtils, untUtils;
+  Classes, SysUtils, untUtils, untParConst;
 
 type
   TDXSysExHeader = record
     f0: byte;
-    id: byte;  // $43 or d67 = Yamaha
+    id: byte;  // $43(67) = Yamaha
     sc: byte;  // s = sub-status, c = channel  0sssnnnn
     {
     s=0 - voice/suppl./perf. dump
@@ -244,22 +244,6 @@ function ContainsDX_FourOP_Data_New(dmp: TMemoryStream; var StartPos: integer;
 var
   abSysExID: array[0..1] of byte = ($F0, $43);
   abSysExType: array [0..2] of byte = ($03, $04, $7E);
-  {LM__8976AE    33 byte   ACED    TX81Z
-    LM__8023AE    20 byte   ACED2   DX11
-    LM__8073AE    30 byte   ACED3   V50
-    LM__8976PE   120 byte   PCED    DX11
-    LM__8073PE    43 byte   PCED2   V50
-    LM__8976PM  2442 byte   PMEM    DX11
-    LM__8073PM   810 byte   PMEM2   V50 }
-  abLMType: array [0..6, 0..9] of byte = (
-    ($4C, $4D, $20, $20, $38, $39, $37, $36, $41, $45),    //LM  8976AE
-    ($4C, $4D, $20, $20, $38, $30, $32, $33, $41, $45),    //LM  8023AE
-    ($4C, $4D, $20, $20, $38, $30, $37, $33, $41, $45),    //LM  8073AE
-    ($4C, $4D, $20, $20, $38, $39, $37, $36, $50, $45),    //LM  8976PE
-    ($4C, $4D, $20, $20, $38, $30, $37, $33, $50, $45),    //LM  8073PE
-    ($4C, $4D, $20, $20, $38, $39, $37, $36, $50, $4D),    //LM  8976PM
-    ($4C, $4D, $20, $20, $38, $30, $37, $33, $50, $4D)     //LM  8073PM
-    );
   rHeader: TDXSysExHeader;
   iDumpStart: integer; // position of $F0
   iDataSize: integer;  // calculated from msb and lsb bytes
@@ -304,7 +288,7 @@ begin
             begin
               for i := 0 to 9 do
                 rHeader.ud[i] := dmp.ReadByte;
-              for i := 0 to 6 do
+              for i := Low(abLMType) to High(abLMType) do
                 if SameArrays(rHeader.ud, abLMType[i]) then
                 begin
                   case i of
@@ -315,6 +299,8 @@ begin
                     4: Report.Add('PCED2 at position ' + IntToStr(StartPos));
                     5: Report.Add('PMEM at position ' + IntToStr(StartPos));
                     6: Report.Add('PMEM2 at position ' + IntToStr(StartPos));
+                    7: Report.Add('EFEDS at position ' + IntToStr(StartPos));
+                    8: Report.Add('DELAY at position ' + IntToStr(StartPos));
                   end;
                 end;
             end;

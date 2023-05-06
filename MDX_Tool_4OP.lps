@@ -69,9 +69,8 @@
         <Filename Value="MDX_Tool_4OP.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="255"/>
-        <CursorPos X="27" Y="288"/>
-        <UsageCount Value="153"/>
+        <CursorPos X="48" Y="10"/>
+        <UsageCount Value="158"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -80,25 +79,25 @@
         <EditorIndex Value="3"/>
         <TopLine Value="138"/>
         <CursorPos X="16" Y="145"/>
-        <UsageCount Value="115"/>
+        <UsageCount Value="120"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="units\untDXUtils.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="250"/>
-        <CursorPos X="60" Y="261"/>
-        <UsageCount Value="113"/>
+        <TopLine Value="19"/>
+        <CursorPos X="27" Y="28"/>
+        <UsageCount Value="118"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="unt4OPObjInterface.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="547"/>
+        <TopLine Value="546"/>
         <CursorPos X="3" Y="540"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="33"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -184,17 +183,17 @@
       <Unit>
         <Filename Value="units\untParConst.pas"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="576"/>
-        <CursorPos X="10" Y="330"/>
-        <UsageCount Value="49"/>
+        <TopLine Value="300"/>
+        <CursorPos X="45" Y="1335"/>
+        <UsageCount Value="51"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="units\unt4OPVoice.pas"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="1272"/>
-        <CursorPos X="28" Y="1168"/>
-        <UsageCount Value="14"/>
+        <TopLine Value="1387"/>
+        <CursorPos X="7" Y="408"/>
+        <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -202,63 +201,11 @@
         <EditorIndex Value="6"/>
         <TopLine Value="154"/>
         <CursorPos X="9" Y="190"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="26">
-      <Position>
-        <Filename Value="units\unt4OPVoice.pas"/>
-        <Caret Line="464" Column="25" TopLine="445"/>
-      </Position>
-      <Position>
-        <Filename Value="unt4OPObjInterface.pas"/>
-        <Caret Line="627" Column="46" TopLine="615"/>
-      </Position>
-      <Position>
-        <Filename Value="units\unt4OPVoice.pas"/>
-        <Caret Line="930" Column="6" TopLine="905"/>
-      </Position>
-      <Position>
-        <Filename Value="units\unt4OPVoice.pas"/>
-        <Caret Line="465" Column="99" TopLine="440"/>
-      </Position>
-      <Position>
-        <Filename Value="units\unt4OPVoice.pas"/>
-        <Caret Line="1320" Column="4" TopLine="1291"/>
-      </Position>
-      <Position>
-        <Filename Value="unt4OPObjInterface.pas"/>
-        <Caret Line="682" Column="9" TopLine="663"/>
-      </Position>
-      <Position>
-        <Filename Value="units\unt4OPVoice.pas"/>
-        <Caret Line="1318" Column="3" TopLine="1291"/>
-      </Position>
-      <Position>
-        <Filename Value="unt4OPObjInterface.pas"/>
-        <Caret Line="618" Column="15" TopLine="596"/>
-      </Position>
-      <Position>
-        <Filename Value="units\unt4OPBank.pas"/>
-        <Caret Line="190" Column="9" TopLine="154"/>
-      </Position>
-      <Position>
-        <Filename Value="units\unt4OPVoice.pas"/>
-        <Caret Line="464" Column="14" TopLine="443"/>
-      </Position>
-      <Position>
-        <Filename Value="unt4OPObjInterface.pas"/>
-        <Caret Line="12" Column="68"/>
-      </Position>
-      <Position>
-        <Filename Value="MDX_Tool_4OP.lpr"/>
-        <Caret Line="19" Column="88"/>
-      </Position>
-      <Position>
-        <Filename Value="MDX_Tool_4OP.lpr"/>
-        <Caret Line="306" Column="25" TopLine="273"/>
-      </Position>
+    <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="units\untDXUtils.pas"/>
         <Caret Line="104" Column="15" TopLine="92"/>
@@ -314,6 +261,70 @@
       <Position>
         <Filename Value="unt4OPObjInterface.pas"/>
         <Caret Line="34" Column="17" TopLine="16"/>
+      </Position>
+      <Position>
+        <Filename Value="units\untParConst.pas"/>
+        <Caret Line="71" Column="3" TopLine="42"/>
+      </Position>
+      <Position>
+        <Filename Value="units\untParConst.pas"/>
+        <Caret Line="57" TopLine="49"/>
+      </Position>
+      <Position>
+        <Filename Value="units\untParConst.pas"/>
+        <Caret Line="43" TopLine="42"/>
+      </Position>
+      <Position>
+        <Filename Value="units\untParConst.pas"/>
+        <Caret Line="99" Column="28" TopLine="98"/>
+      </Position>
+      <Position>
+        <Filename Value="units\untParConst.pas"/>
+        <Caret Line="137" TopLine="114"/>
+      </Position>
+      <Position>
+        <Filename Value="units\untParConst.pas"/>
+        <Caret Line="143" TopLine="114"/>
+      </Position>
+      <Position>
+        <Filename Value="units\untParConst.pas"/>
+        <Caret Line="149" TopLine="114"/>
+      </Position>
+      <Position>
+        <Filename Value="units\untParConst.pas"/>
+        <Caret Line="157" Column="32" TopLine="119"/>
+      </Position>
+      <Position>
+        <Filename Value="units\untParConst.pas"/>
+        <Caret Line="1037" Column="7" TopLine="996"/>
+      </Position>
+      <Position>
+        <Filename Value="units\untDXUtils.pas"/>
+        <Caret Line="23" Column="43"/>
+      </Position>
+      <Position>
+        <Filename Value="MDX_Tool_4OP.lpr"/>
+        <Caret Line="288" Column="27" TopLine="255"/>
+      </Position>
+      <Position>
+        <Filename Value="units\unt4OPVoice.pas"/>
+        <Caret Line="1329" Column="68" TopLine="1291"/>
+      </Position>
+      <Position>
+        <Filename Value="units\unt4OPVoice.pas"/>
+        <Caret Line="1381" Column="7" TopLine="1364"/>
+      </Position>
+      <Position>
+        <Filename Value="units\unt4OPVoice.pas"/>
+        <Caret Line="410" Column="6" TopLine="410"/>
+      </Position>
+      <Position>
+        <Filename Value="units\unt4OPVoice.pas"/>
+        <Caret Line="445" Column="21" TopLine="428"/>
+      </Position>
+      <Position>
+        <Filename Value="units\unt4OPVoice.pas"/>
+        <Caret Line="999" Column="66" TopLine="991"/>
       </Position>
     </JumpHistory>
     <RunParams>
