@@ -752,7 +752,7 @@ begin
   t.VCED.LFO_Sync := (aPar.VMEM.SY_FBL_ALG shr 6) and 1;
   t.VCED.LFO_Wave := aPar.VMEM.PMS_AMS_LFW and 3;
   t.VCED.Pitch_Mod_Sens := (aPar.VMEM.PMS_AMS_LFW shr 4) and 7;
-  t.VCED.Amplitude_Mod_Sens := (aPar.VMEM.PMS_AMS_LFW shr 2) and 7;
+  t.VCED.Amplitude_Mod_Sens := (aPar.VMEM.PMS_AMS_LFW shr 2) and 3;
   t.VCED.Transpose := aPar.VMEM.Transpose and 63;
   t.VCED.Poly_Mono := (aPar.VMEM.CH_MO_SU_PO_PM shr 3) and 1;
   t.VCED.Pitch_Bend_Range := aPar.VMEM.Pitch_Bend_Range and 15;

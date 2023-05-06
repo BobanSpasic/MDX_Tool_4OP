@@ -187,7 +187,7 @@ const
     (00, 07, 00),
     (00, 07, 00),
     (00, 99, 35),
-    (01, 99, 00),
+    (00, 99, 00),
     (00, 99, 00),
     (00, 99, 00),
     (00, 01, 00),
@@ -199,7 +199,7 @@ const
     (00, 01, 00),
     (00, 12, 04),
     (00, 01, 00),
-    (01, 99, 00),
+    (00, 99, 00),
     (00, 99, 40),
     (00, 01, 01),
     (00, 01, 00),
@@ -295,7 +295,7 @@ const
     ('OP2_Fix_Range_Mode', 'OP2_FIXRM'),
     ('OP1_Fix_Range_Mode', 'OP1_FIXRM'),
     ('LS_Sign', 'LS2'),
-    ('Reserved', 'RESERVED')
+    ('Reserved32', 'RESERVED')
     );
 
   V50_ACED2_MIN_MAX_INT: array [0..9, 0..2] of byte = (
@@ -319,19 +319,19 @@ const
     ('Effect_Param1', 'EFCT_PARAM1'),
     ('Effect_Param2', 'EFCT_PARAM2'),
     ('Effect_Param3', 'EFCT_PARAM3'),
-    ('Reserved', 'RESERVED'),
-    ('Reserved', 'RESERVED'),
-    ('Reserved', 'RESERVED'),
-    ('Reserved', 'RESERVED'),
-    ('Reserved', 'RESERVED'),
-    ('Reserved', 'RESERVED'),
-    ('Reserved', 'RESERVED'),
-    ('Reserved', 'RESERVED'),
-    ('Reserved', 'RESERVED'),
-    ('Reserved', 'RESERVED'),
-    ('Reserved', 'RESERVED'),
-    ('Reserved', 'RESERVED'),
-    ('Reserved', 'RESERVED')
+    ('WT11_LFO_Control', 'WT11_LFOC'),
+    ('Reserved41', 'RESERVED'),
+    ('Reserved42', 'RESERVED'),
+    ('Reserved43', 'RESERVED'),
+    ('Reserved44', 'RESERVED'),
+    ('Reserved45', 'RESERVED'),
+    ('Reserved46', 'RESERVED'),
+    ('Reserved47', 'RESERVED'),
+    ('Reserved48', 'RESERVED'),
+    ('Reserved49', 'RESERVED'),
+    ('Reserved50', 'RESERVED'),
+    ('Reserved51', 'RESERVED'),
+    ('Reserved52', 'RESERVED')
     );
 
   V50_ACED3_MIN_MAX_INT: array [0..19, 0..2] of byte = (
@@ -342,19 +342,19 @@ const
     (00, 75, 00),
     (00, 99, 00),
     (00, 99, 00),
-    (00, 99, 00),
-    (00, 99, 00),
-    (00, 99, 00),
-    (00, 99, 00),
-    (00, 99, 00),
-    (00, 99, 00),
-    (00, 99, 00),
-    (00, 99, 00),
-    (00, 99, 00),
-    (00, 99, 00),
-    (00, 99, 00),
-    (00, 99, 00),
-    (00, 99, 00)
+    (00, 02, 00),
+    (00, 255, 00),
+    (00, 255, 00),
+    (00, 255, 00),
+    (00, 255, 00),
+    (00, 255, 00),
+    (00, 255, 00),
+    (00, 255, 00),
+    (00, 255, 00),
+    (00, 255, 00),
+    (00, 255, 00),
+    (00, 255, 00),
+    (00, 255, 00)
     );
 
   DS55_DELAY_NAMES: array [0..1, 0..1] of string = (
@@ -376,7 +376,7 @@ const
   YS_EFEDS_MIN_MAX_INT: array [0..2, 0..2] of byte = (
     (00, 10, 00),
     (00, 40, 00),
-    (00, 99, 50)
+    (00, 100, 50)
     );
 
   DX7_VCED_NAMES: array [0..155, 0..1] of string = (

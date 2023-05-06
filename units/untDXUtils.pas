@@ -138,10 +138,12 @@ var
   iCalcChk: integer;
   iRep: integer;
   i: integer;
+  bSupp: boolean;
 begin
   iDumpStart := -1;
   iDataSize := -1;
   iDumpEnd := -1;
+  bSupp := False;
   Result := False;
   iRep := StartPos;
   while iRep < dmp.Size do
@@ -181,48 +183,54 @@ begin
           if rHeader.f = $09 then
             Report.Add('DX7/DX9 Voice Bank - VMEM at position ' +
               IntToStr(StartPos));
+          bSupp := True;
         end
         else
         begin
           Report.Add('Unsupported Yamaha dump type: ' + IntToStr(rHeader.f));
+          bSupp := False;
+          Inc(iRep);
         end;
-        iDataSize := (rHeader.msb shl 7) + rHeader.lsb;
-        Report.Add('Calculated data size: ' + IntToStr(iDataSize));
-        if (iDumpStart + iDataSize + 8) <= dmp.Size then
+        if bSupp then
         begin
-          iDumpEnd := PosBytes($F7, dmp, iDumpStart + 1);
-          if iDumpEnd = -1 then iDumpEnd := dmp.Size;
-          Report.Add('Real data size: ' + IntToStr(iDumpEnd - iDumpStart - 7));
-          if iDumpEnd = (iDumpStart + iDataSize + 7) then
+          iDataSize := (rHeader.msb shl 7) + rHeader.lsb;
+          Report.Add('Calculated data size: ' + IntToStr(iDataSize));
+          if (iDumpStart + iDataSize + 8) <= dmp.Size then
           begin
-            dmp.Position := iDumpEnd - 1;
-            rHeader.chk := dmp.ReadByte;
-            iCalcChk := 0;
-            dmp.Position := iDumpStart + 6;
-            for i := 1 to iDataSize do
-              iCalcChk := iCalcChk + dmp.ReadByte;
-            iCalcChk := ((not (iCalcChk and 255)) and 127) + 1;
-            if (rHeader.chk = iCalcChk) or (rHeader.chk = 0) then
+            iDumpEnd := PosBytes($F7, dmp, iDumpStart + 1);
+            if iDumpEnd = -1 then iDumpEnd := dmp.Size;
+            Report.Add('Real data size: ' + IntToStr(iDumpEnd - iDumpStart - 7));
+            if iDumpEnd = (iDumpStart + iDataSize + 7) then
             begin
-              Report.Add('Checksum match');
-              Result := True;
+              dmp.Position := iDumpEnd - 1;
+              rHeader.chk := dmp.ReadByte;
+              iCalcChk := 0;
+              dmp.Position := iDumpStart + 6;
+              for i := 1 to iDataSize do
+                iCalcChk := iCalcChk + dmp.ReadByte;
+              iCalcChk := ((not (iCalcChk and 255)) and 127) + 1;
+              if (rHeader.chk = iCalcChk) or (rHeader.chk = 0) then
+              begin
+                Report.Add('Checksum match');
+                Result := True;
+              end
+              else
+              begin
+                Report.Add('Checksum mismatch');
+                Result := False;
+              end;
             end
             else
             begin
-              Report.Add('Checksum mismatch');
-              Result := False;
+              Report.Add('Data size mismatch');
             end;
+            iRep := iDumpEnd + 1;
           end
           else
           begin
-            Report.Add('Data size mismatch');
+            Report.Add('File too short');
+            Exit;
           end;
-          iRep := iDumpEnd + 1;
-        end
-        else
-        begin
-          Report.Add('File too short');
-          Exit;
         end;
       end
       else
@@ -251,10 +259,12 @@ var
   iCalcChk: integer;
   iRep: integer;
   i: integer;
+  bSupp: boolean;
 begin
   iDumpStart := -1;
   iDataSize := -1;
   iDumpEnd := -1;
+  bSupp := False;
   Result := False;
   iRep := StartPos;
   while iRep < dmp.Size do
@@ -305,48 +315,57 @@ begin
                 end;
             end;
           end;
+          bSupp := True;
         end
         else
         begin
-          Report.Add('Unsupported Yamaha dump type: ' + IntToStr(rHeader.f));
+          if (rHeader.f = $24) or (rHeader.f = $10) then
+            Report.Add('V50 - Block announcement')
+          else
+            Report.Add('Unsupported Yamaha dump type: ' + IntToStr(rHeader.f));
+          bSupp := False;
+          Inc(iRep);
         end;
-        iDataSize := (rHeader.msb shl 7) + rHeader.lsb;
-        Report.Add('Calculated data size: ' + IntToStr(iDataSize));
-        if (iDumpStart + iDataSize + 8) <= dmp.Size then
+        if bSupp then
         begin
-          iDumpEnd := PosBytes($F7, dmp, iDumpStart + 1);
-          if iDumpEnd = -1 then iDumpEnd := dmp.Size;
-          Report.Add('Real data size: ' + IntToStr(iDumpEnd - iDumpStart - 7));
-          if iDumpEnd = (iDumpStart + iDataSize + 7) then
+          iDataSize := (rHeader.msb shl 7) + rHeader.lsb;
+          Report.Add('Calculated data size: ' + IntToStr(iDataSize));
+          if (iDumpStart + iDataSize + 8) <= dmp.Size then
           begin
-            dmp.Position := iDumpEnd - 1;
-            rHeader.chk := dmp.ReadByte;
-            iCalcChk := 0;
-            dmp.Position := iDumpStart + 6;
-            for i := 1 to iDataSize do
-              iCalcChk := iCalcChk + dmp.ReadByte;
-            iCalcChk := ((not (iCalcChk and 255)) and 127) + 1;
-            if (rHeader.chk = iCalcChk) or (rHeader.chk = 0) then
+            iDumpEnd := PosBytes($F7, dmp, iDumpStart + 1);
+            if iDumpEnd = -1 then iDumpEnd := dmp.Size;
+            Report.Add('Real data size: ' + IntToStr(iDumpEnd - iDumpStart - 7));
+            if iDumpEnd = (iDumpStart + iDataSize + 7) then
             begin
-              Report.Add('Checksum match');
-              Result := True;
+              dmp.Position := iDumpEnd - 1;
+              rHeader.chk := dmp.ReadByte;
+              iCalcChk := 0;
+              dmp.Position := iDumpStart + 6;
+              for i := 1 to iDataSize do
+                iCalcChk := iCalcChk + dmp.ReadByte;
+              iCalcChk := ((not (iCalcChk and 255)) and 127) + 1;
+              if (rHeader.chk = iCalcChk) or (rHeader.chk = 0) then
+              begin
+                Report.Add('Checksum match');
+                Result := True;
+              end
+              else
+              begin
+                Report.Add('Checksum mismatch');
+                Result := False;
+              end;
             end
             else
             begin
-              Report.Add('Checksum mismatch');
-              Result := False;
+              Report.Add('Data size mismatch');
             end;
+            iRep := iDumpEnd + 1;
           end
           else
           begin
-            Report.Add('Data size mismatch');
+            Report.Add('File too short');
+            Exit;
           end;
-          iRep := iDumpEnd + 1;
-        end
-        else
-        begin
-          Report.Add('File too short');
-          Exit;
         end;
       end
       else
@@ -723,10 +742,7 @@ var
   needExtractDump: boolean;
   needFillDump: boolean;
 begin
-  sNameRepaired := ExtractFileName(aFileName);
-  sNameRepaired := ExtractFileNameWithoutExt(sNameRepaired);
   sDirRepaired := IncludeTrailingPathDelimiter(ExtractFileDir(aFileName));
-  //sNameRepaired := sDirRepaired + sNameRepaired + '_DX7_repaired.syx';
   Result := False;
   msToRepair := TMemoryStream.Create;
   msRepaired := TMemoryStream.Create;
@@ -792,7 +808,12 @@ begin
         end
         else
         begin
-          if PosBytes(abSysExID, msToRepair, iRep + 1) = -1 then iRep := msToRepair.Size;
+          //we found other kind of dump that we do not need. jump over it if possible
+          iDumpEnd := PosBytes($F7, msToRepair, iDumpStart + 1);
+          if iDumpEnd = -1 then
+            iDumpEnd := msToRepair.Size;
+          iRep := iDumpEnd + 1;
+          if PosBytes(abSysExID, msToRepair, iRep) = -1 then iRep := msToRepair.Size;
         end;
       end
       else
@@ -822,7 +843,9 @@ begin
         iCalcChk := ((not (iCalcChk and 255)) and 127) + 1;
         msRepaired.WriteByte(iCalcChk);
         msRepaired.WriteByte($F7);
-        sNameRepaired := sDirRepaired + sNameRepaired + '_4OP_repaired.syx';
+        sNameRepaired := ExtractFileName(aFileName);
+        sNameRepaired := ExtractFileNameWithoutExt(sNameRepaired);
+        sNameRepaired := sNameRepaired + '_4OP_repaired.syx';
         msRepaired.SaveToFile(sNameRepaired);
         Report.Add('File is just 4096 bytes long. Writting headers.');
         Result := True;
@@ -848,10 +871,14 @@ begin
       iCalcChk := ((not (iCalcChk and 255)) and 127) + 1;
       msRepaired.WriteByte(iCalcChk);
       msRepaired.WriteByte($F7);
-      sNameRepaired := sDirRepaired + sNameRepaired + '_' +
+      sNameRepaired := ExtractFileName(aFileName);
+      sNameRepaired := ExtractFileNameWithoutExt(sNameRepaired);
+      sNameRepaired := sNameRepaired + '_' +
         IntToStr(iDumpStart) + '_4OP_repaired.syx';
       msRepaired.SaveToFile(sNameRepaired);
+      msRepaired.Clear;
       Result := True;
+      msToRepair.Position := iRep;
     end;
     if needExtractDump then
       Report.Add('Extracting VMEM dump from a file that also contains other data.');

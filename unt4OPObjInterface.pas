@@ -622,6 +622,7 @@ begin
   slReport := TStringList.Create;
   fVoice := T4OPVoiceContainer.Create;
 
+  //Todo - wrong. aced etc also need to be loaded
   fVoice.Load_VCED_FromStream(aStream, aPos);
 
   //check if the parameters are between min and max values
