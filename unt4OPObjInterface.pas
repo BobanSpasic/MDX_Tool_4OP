@@ -277,52 +277,91 @@ end;
 procedure RipMidiQuest(aStream: TMemoryStream; aOutDir: string);
 var
   abBODY: array[0..3] of byte = ($42, $4F, $44, $59);
+  abFORM: array[0..3] of byte = ($46, $4F, $52, $4D);
+  abID: array[0..1] of byte = ($F0, $43);
   msVCED: TMemoryStream;
   msHeadless: TMemoryStream;
+  msTmp: TMemoryStream;
   iCounter: integer;
-  iPos: integer;
+  iPosBODY: integer;
+  iPosFORM: integer;
+  iPosF0: integer;
+  iPosF7: integer;
   checksum: integer;
   i: integer;
 begin
   msVCED := TMemoryStream.Create;
   msHeadless := TMemoryStream.Create;
   iCounter := 1;
-  iPos := -1;
+  iPosBODY := -1;
   WriteLn('Stream size ' + IntToStr(aStream.Size));
-  while iPos < aStream.Size do
+  while iPosBODY < aStream.Size do
   begin
-    iPos := PosBytes(abBODY, aStream, iPos + 1);
-    WriteLn('iPos: ' + IntToStr(iPos));
-    if iPos > -1 then
+    iPosBODY := PosBytes(abBODY, aStream, iPosBODY + 1);
+    WriteLn('iPosBODY: ' + IntToStr(iPosBODY));
+    if iPosBODY > -1 then
     begin
-      aStream.Position := iPos + 14;
-      if aStream.Position + 155 < aStream.Size then
+      iPosFORM := PosBytes(abFORM, aStream, iPosBODY + 1);
+      WriteLn('iPosFORM: ' + IntToStr(iPosFORM));
+      if iPosForm <> -1 then
       begin
-        msVCED.WriteByte($F0);
-        msVCED.WriteByte($43);
-        msVCED.WriteByte($00);
-        msVCED.WriteByte($00);
-        msVCED.WriteByte($01);
-        msVCED.WriteByte($1B);
+        msTmp := TMemoryStream.Create;
+        aStream.Position := iPosBODY;
+        msTmp.CopyFrom(aStream, iPosFORM - iPosBODY);
+        WriteLn('msTmp.Size: ' + IntToStr(msTmp.Size));
+        iPosF0 := PosBytes(abID, msTmp);
+        WriteLn('iPosF0: ' + IntToStr(iPosF0));
+        if iPosF0 <> -1 then //it is VCED+ACED
+        begin
+          iPosF7 := PosBytes($F7, msTmp, iPosF0);
+          WriteLn('1st iPosF7: ' + IntToStr(iPosF7));
+          while iPosF7 < msTmp.Size do
+          begin
+            if PosBytes($F7, msTmp, iPosF7 + 1) <> -1 then
+              iPosF7 := PosBytes($F7, msTmp, iPosF7 + 1)
+            else
+              break;
+          end;
+          WriteLn('Last iPosF7: ' + IntToStr(iPosF7));
+          msTmp.Position := iPosF0;
+          msVCED.CopyFrom(msTmp, iPosF7 - iPosF0 + 1);
+          msVCED.SaveToFile(aOutDir + Format('%.6d', [iCounter]) + '.syx');
+          msVCED.Clear;
+          Inc(iCounter);
+        end
+        else
+        begin
+          aStream.Position := iPosBODY + 14;
+          if aStream.Position + 93 < aStream.Size then
+          begin
+            msVCED.WriteByte($F0);
+            msVCED.WriteByte($43);
+            msVCED.WriteByte($00);
+            msVCED.WriteByte($03);
+            msVCED.WriteByte($01);
+            msVCED.WriteByte($1B);
 
-        msHeadless.CopyFrom(aStream, 155);
-        msHeadless.Position := 0;
+            msHeadless.CopyFrom(aStream, 93);
+            msHeadless.Position := 0;
 
-        msVCED.CopyFrom(msHeadless, 155);
+            msVCED.CopyFrom(msHeadless, 93);
 
-        msHeadless.Position := 0;
-        checksum := 0;
-        for i := 1 to 155 do
-          checksum := checksum + msHeadless.ReadByte;
-        checksum := ((not (checksum and 255)) and 127) + 1;
+            msHeadless.Position := 0;
+            checksum := 0;
+            for i := 1 to 93 do
+              checksum := checksum + msHeadless.ReadByte;
+            checksum := ((not (checksum and 255)) and 127) + 1;
 
-        msVCED.WriteByte(checksum);
-        msVCED.WriteByte($F7);
-        //msHeadless.SaveToFile(aOutDir + Format('%.6d', [iCounter]) + '.hsyx');
-        msVCED.SaveToFile(aOutDir + Format('%.6d', [iCounter]) + '.syx');
-        msHeadless.Clear;
-        msVCED.Clear;
-        Inc(iCounter);
+            msVCED.WriteByte(checksum);
+            msVCED.WriteByte($F7);
+            //msHeadless.SaveToFile(aOutDir + Format('%.6d', [iCounter]) + '.hsyx');
+            msVCED.SaveToFile(aOutDir + Format('%.6d', [iCounter]) + '.syx');
+            msHeadless.Clear;
+            msVCED.Clear;
+            Inc(iCounter);
+          end;
+        end;
+        msTmp.Free;
       end;
     end
     else
@@ -346,11 +385,11 @@ var
 begin
   fBank := T4OPBankContainer.Create;
   iPos := -1;
-  if PosBytes(abSysExID, aStream) >= 0 then
+  if PosBytes(abSysExID, aStream, 0) >= 0 then
   begin
     aStream.Position := 3;
     tmpByte := aStream.ReadByte;
-    if tmpByte = 9 then
+    if tmpByte = 4 then
     begin
       iPos := 6;
       WriteLn('    VMEM header found');

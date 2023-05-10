@@ -49,20 +49,6 @@ type
         OP4_Frequency: byte;                 //       0-63
         OP4_Detune: byte;                    //       0-6 (center = 3)
 
-        OP3_Attack_Rate: byte;               //       0-31
-        OP3_Decay_1_Rate: byte;              //       0-31
-        OP3_Decay_2_Rate: byte;              //       0-31
-        OP3_Release_Rate: byte;              //       1-15
-        OP3_Decay_1_Level: byte;             //       0-15
-        OP3_Level_Scaling: byte;             //       0-99
-        OP3_Rate_Scaling: byte;              //       0-3
-        OP3_EG_Bias_Sens: byte;              //       0-7
-        OP3_AM_Enable: byte;                 //       0-1
-        OP3_Key_Vel_Sens: byte;              //       0-7
-        OP3_OP_Output_Level: byte;           //       0-99
-        OP3_Frequency: byte;                 //       0-63
-        OP3_Detune: byte;                    //       0-6 (center = 3)
-
         OP2_Attack_Rate: byte;               //       0-31
         OP2_Decay_1_Rate: byte;              //       0-31
         OP2_Decay_2_Rate: byte;              //       0-31
@@ -76,6 +62,20 @@ type
         OP2_OP_Output_Level: byte;           //       0-99
         OP2_Frequency: byte;                 //       0-63
         OP2_Detune: byte;                    //       0-6 (center = 3)
+
+        OP3_Attack_Rate: byte;               //       0-31
+        OP3_Decay_1_Rate: byte;              //       0-31
+        OP3_Decay_2_Rate: byte;              //       0-31
+        OP3_Release_Rate: byte;              //       1-15
+        OP3_Decay_1_Level: byte;             //       0-15
+        OP3_Level_Scaling: byte;             //       0-99
+        OP3_Rate_Scaling: byte;              //       0-3
+        OP3_EG_Bias_Sens: byte;              //       0-7
+        OP3_AM_Enable: byte;                 //       0-1
+        OP3_Key_Vel_Sens: byte;              //       0-7
+        OP3_OP_Output_Level: byte;           //       0-99
+        OP3_Frequency: byte;                 //       0-63
+        OP3_Detune: byte;                    //       0-6 (center = 3)
 
         OP1_Attack_Rate: byte;               //       0-31
         OP1_Decay_1_Rate: byte;              //       0-31
@@ -146,17 +146,17 @@ type
         OP4_Operator_Waveform: byte;         //       0-7
         OP4_EG_Shift: byte;                  //       0-3
 
-        OP3_Fixed_Freq: byte;                //       0-1
-        OP3_Fixed_Freq_Range: byte;          //       0-7
-        OP3_Freq_Range_Fine: byte;           //       0-15
-        OP3_Operator_Waveform: byte;         //       0-7
-        OP3_EG_Shift: byte;                  //       0-3
-
         OP2_Fixed_Freq: byte;                //       0-1
         OP2_Fixed_Freq_Range: byte;          //       0-7
         OP2_Freq_Range_Fine: byte;           //       0-15
         OP2_Operator_Waveform: byte;         //       0-7
         OP2_EG_Shift: byte;                  //       0-3
+
+        OP3_Fixed_Freq: byte;                //       0-1
+        OP3_Fixed_Freq_Range: byte;          //       0-7
+        OP3_Freq_Range_Fine: byte;           //       0-15
+        OP3_Operator_Waveform: byte;         //       0-7
+        OP3_EG_Shift: byte;                  //       0-3
 
         OP1_Fixed_Freq: byte;                //       0-1
         OP1_Fixed_Freq_Range: byte;          //       0-7
@@ -179,8 +179,8 @@ type
         AT_Pitch_Bias: byte;                 //       0-100 (center=50)
         AT_EG_Bias: byte;                    //       0-99
         OP4_Fix_Range_Mode: byte;            //       0-1   (0=Hi, 1=Lo)
-        OP3_Fix_Range_Mode: byte;            //       0-1
         OP2_Fix_Range_Mode: byte;            //       0-1
+        OP3_Fix_Range_Mode: byte;            //       0-1
         OP1_Fix_Range_Mode: byte;            //       0-1
         LS_Sign: byte;                       //       0-15
         Reserved: byte;
@@ -248,17 +248,6 @@ type
         OP4_Frequency: byte;                 //       0-63
         OP4_LS2_KVS2_RS_DET: byte;           //       0-1,0-1,0-3,0-6
 
-        OP3_Attack_Rate: byte;               //       0-31
-        OP3_Decay_1_Rate: byte;              //       0-31
-        OP3_Decay_2_Rate: byte;              //       0-31
-        OP3_Release_Rate: byte;              //       1-15
-        OP3_Decay_1_Level: byte;             //       0-15
-        OP3_Level_Scaling: byte;             //       0-99
-        OP3_AME_EBS_KVS: byte;               //       0-1,0-7,0-7
-        OP3_OP_Output_Level: byte;           //       0-99
-        OP3_Frequency: byte;                 //       0-63
-        OP3_LS2_KVS2_RS_DET: byte;           //       0-1,0-1,0-3,0-6
-
         OP2_Attack_Rate: byte;               //       0-31
         OP2_Decay_1_Rate: byte;              //       0-31
         OP2_Decay_2_Rate: byte;              //       0-31
@@ -269,6 +258,17 @@ type
         OP2_OP_Output_Level: byte;           //       0-99
         OP2_Frequency: byte;                 //       0-63
         OP2_LS2_KVS2_RS_DET: byte;           //       0-1,0-1,0-3,0-6
+
+        OP3_Attack_Rate: byte;               //       0-31
+        OP3_Decay_1_Rate: byte;              //       0-31
+        OP3_Decay_2_Rate: byte;              //       0-31
+        OP3_Release_Rate: byte;              //       1-15
+        OP3_Decay_1_Level: byte;             //       0-15
+        OP3_Level_Scaling: byte;             //       0-99
+        OP3_AME_EBS_KVS: byte;               //       0-1,0-7,0-7
+        OP3_OP_Output_Level: byte;           //       0-99
+        OP3_Frequency: byte;                 //       0-63
+        OP3_LS2_KVS2_RS_DET: byte;           //       0-1,0-1,0-3,0-6
 
         OP1_Attack_Rate: byte;               //       0-31
         OP1_Decay_1_Rate: byte;              //       0-31
@@ -324,11 +324,11 @@ type
         OP4_FIXRM_EGSFT_FIX_FIXRG: byte;    // TX81z does not have FIXRM (ACED2)
         OP4_OSW_FINE: byte;                 // TX81z OPW = OSW
 
-        OP3_FIXRM_EGSFT_FIX_FIXRG: byte;
-        OP3_OSW_FINE: byte;
-
         OP2_FIXRM_EGSFT_FIX_FIXRG: byte;
         OP2_OSW_FINE: byte;
+
+        OP3_FIXRM_EGSFT_FIX_FIXRG: byte;
+        OP3_OSW_FINE: byte;
 
         OP1_FIXRM_EGSFT_FIX_FIXRG: byte;
         OP1_OSW_FINE: byte;
@@ -412,21 +412,34 @@ type
   private
     F4OP_V50_VCED_Params: T4OP_V50_VCED_Params;
     F4OP_V50_VMEM_Params: T4OP_V50_VMEM_Params;
+    FHasACED: boolean;
+    FHasACED2: boolean;
+    FHasACED3: boolean;
+    FHasDELAY: boolean;
+    FHasEFEDS: boolean;
   public
+    //translation functions are here part of the class because of FHas... properties
+    function VCEDtoVMEM(aPar: T4OP_V50_VCED_Params): T4OP_V50_VMEM_Params;
+    function VMEMtoVCED(aPar: T4OP_V50_VMEM_Params): T4OP_V50_VCED_Params;
+
+    function Load_Voice_FromStream(var aStream: TMemoryStream; aPos: integer): boolean;
     function Load_VCED_FromStream(var aStream: TMemoryStream; aPos: integer): boolean;
     function Load_ACED_FromStream(var aStream: TMemoryStream; aPos: integer): boolean;
     function Load_ACED2_FromStream(var aStream: TMemoryStream; aPos: integer): boolean;
     function Load_ACED3_FromStream(var aStream: TMemoryStream; aPos: integer): boolean;
+    function Load_DELAY_FromStream(var aStream: TMemoryStream; aPos: integer): boolean;
+    function Load_EFEDS_FromStream(var aStream: TMemoryStream; aPos: integer): boolean;
 
     function Load_VMEM_FromStream(var aStream: TMemoryStream;
       aPos: integer): boolean;
     function Save_VMEM_ToStream(var aStream: TMemoryStream): boolean;
-    //function Save_VCED_ToStream(var aStream: TMemoryStream): boolean;   //makes no sense for 4OP
 
     function Add_VCED_ToStream(var aStream: TMemoryStream): boolean;
     function Add_ACED_ToStream(var aStream: TMemoryStream): boolean;
     function Add_ACED2_ToStream(var aStream: TMemoryStream): boolean;
     function Add_ACED3_ToStream(var aStream: TMemoryStream): boolean;
+    function Add_DELAY_ToStream(var aStream: TMemoryStream): boolean;
+    function Add_EFEDS_ToStream(var aStream: TMemoryStream): boolean;
 
     procedure InitVoice;
     function GetVoiceName: string;
@@ -436,6 +449,8 @@ type
     function GetACEDChecksum: byte;
     function GetACED2Checksum: byte;
     function GetACED3Checksum: byte;
+    function GetDELAYChecksum: byte;
+    function GetEFEDSChecksum: byte;
     function GetChecksumPart: integer;
 
     function Get_VMEM_Params: T4OP_V50_VMEM_Params;
@@ -446,14 +461,17 @@ type
     function CheckMinMax(var slReport: TStringList): boolean;
     function HasNullInName: boolean;
     procedure Normalize;
-  end;
 
-function VCEDtoVMEM(aPar: T4OP_V50_VCED_Params): T4OP_V50_VMEM_Params;
-function VMEMtoVCED(aPar: T4OP_V50_VMEM_Params): T4OP_V50_VCED_Params;
+    property HasACED: boolean read FHasACED write FHasACED;
+    property HasACED2: boolean read FHasACED2 write FHasACED2;
+    property HasACED3: boolean read FHasACED3 write FHasACED3;
+    property HasDELAY: boolean read FHasDELAY write FHasDELAY;
+    property HasEFEDS: boolean read FHasEFEDS write FHasEFEDS;
+  end;
 
 implementation
 
-function VCEDtoVMEM(aPar: T4OP_V50_VCED_Params): T4OP_V50_VMEM_Params;
+function T4OPVoiceContainer.VCEDtoVMEM(aPar: T4OP_V50_VCED_Params): T4OP_V50_VMEM_Params;
 var
   t: T4OP_V50_VMEM_Params;
   sign: integer;
@@ -641,7 +659,7 @@ begin
   Result := t;
 end;
 
-function VMEMtoVCED(aPar: T4OP_V50_VMEM_Params): T4OP_V50_VCED_Params;
+function T4OPVoiceContainer.VMEMtoVCED(aPar: T4OP_V50_VMEM_Params): T4OP_V50_VCED_Params;
 var
   t: T4OP_V50_VCED_Params;
   kvs1, kvs2: byte;
@@ -790,6 +808,9 @@ begin
   t.ACED.FC_Pitch := aPar.AMEM.FC_Pitch and 127;
   t.ACED.FC_Amplitude := aPar.AMEM.FC_Amplitude and 127;
 
+  if (t.ACED.Reverb_Rate + t.ACED.FC_Pitch + t.ACED.FC_Amplitude) <> 0 then
+    FHasACED := True;
+
   t.ACED2.AT_Pitch := aPar.AMEM3.AT_Pitch and 127;
   t.ACED2.AT_Amplitude := aPar.AMEM3.AT_Amplitude and 127;
   t.ACED2.AT_Pitch_Bias := aPar.AMEM3.AT_Pitch_Bias and 127;
@@ -801,6 +822,10 @@ begin
   b3 := (aPar.VMEM.OP1_LS2_KVS2_RS_DET shr 3) and 4;
   t.ACED2.LS_Sign := b0 + b1 + b2 + b3;
 
+  if (t.ACED2.AT_Pitch + t.ACED2.AT_Amplitude + t.ACED2.AT_Pitch_Bias +
+    t.ACED2.AT_EG_Bias + t.ACED2.LS_Sign) <> 0 then
+    FHasACED2 := True;
+
   t.ACED3.Effect_Select := aPar.AMEM3.Effect_Select;
   t.ACED3.Balance := aPar.AMEM3.Balance;
   t.ACED3.Out_Level := aPar.AMEM3.Out_Level;
@@ -809,13 +834,20 @@ begin
   t.ACED3.Effect_Param_2 := aPar.AMEM3.Effect_Param_2;
   t.ACED3.Effect_Param_3 := aPar.AMEM3.Effect_Param_3;
 
+  if (t.ACED3.Effect_Select + t.ACED3.Balance + t.ACED3.Out_Level +
+    t.ACED3.Effect_Param_1 + t.ACED3.Effect_Param_2 + t.ACED3.Effect_Param_3) <> 0 then
+    FHasACED3 := True;
+
   t.EFEDS.Preset := aPar.AMEM3.Effect_Preset_Nr;
   t.EFEDS.Time := aPar.AMEM3.Effect_Time;
   t.EFEDS.Balance := aPar.AMEM3.Balance;
 
+  if (t.EFEDS.Preset + t.EFEDS.Time + t.EFEDS.Balance) <> 0 then FHasEFEDS := True;
+
   t.DELAY.Delay_SW := (aPar.AMEM3.Reserved_90 shr 1) and 1;
   t.DELAY.Long_Short := aPar.AMEM3.Reserved_90 and 1;
 
+  if (t.DELAY.Delay_SW + t.DELAY.Long_Short) <> 0 then FHasDELAY := True;
 
   Result := t;
 end;
@@ -866,20 +898,48 @@ begin
     Result := False;
 end;
 
-{function T4OPVoiceContainer.Save_VCED_ToStream(var aStream: TMemoryStream): boolean;
+function T4OPVoiceContainer.Load_Voice_FromStream(var aStream: TMemoryStream;
+  aPos: integer): boolean;
 var
-  i: integer;
+  iPosVCED: integer;
+  iPosACED: integer;
+  iPosACED2: integer;
+  iPosACED3: integer;
+  iPosDELAY: integer;
+  iPosEFEDS: integer;
 begin
-  if Assigned(aStream) then
+  iPosVCED := PosBytes([$03, $00, $5D], aStream, aPos);
+  if iPosVCED - 3 >= 0 then
   begin
-    aStream.Clear;
-    for i := 0 to 92 do
-      aStream.WriteByte(F4OP_V50_VCED_Params.VCED.params[i]);
-    Result := True;
-  end
-  else
-    Result := False;
-end; }
+    aStream.Position := iPosVCED - 3;
+    if (aStream.ReadByte = $F0) and (aStream.ReadByte = $43) then
+      iPosVCED := iPosVCED - 3
+    else iPosVCED := -1;
+  end;
+  iPosACED := PosBytes(abLMType[0], aStream, aPos);
+  FHasACED := iPosACED <> -1;
+  iPosACED2 := PosBytes(abLMType[1], aStream, aPos);
+  FHasACED2 := iPosACED2 <> -1;
+  iPosACED3 := PosBytes(abLMType[2], aStream, aPos);
+  FHasACED3 := iPosACED3 <> -1;
+  iPosDELAY := PosBytes(abLMType[8], aStream, aPos);
+  FHasDELAY := iPosDELAY <> -1;
+  iPosEFEDS := PosBytes(abLMType[7], aStream, aPos);
+  FHasEFEDS := iPosEFEDS <> -1;
+  Result := False;
+  if iPosVCED <> -1 then
+    Result := Load_VCED_FromStream(aStream, iPosVCED + 6);
+  if FHasACED then
+    Load_ACED_FromStream(aStream, iPosACED + 10);
+  if FHasACED2 then
+    Load_ACED2_FromStream(aStream, iPosACED2 + 10);
+  if FHasACED3 then
+    Load_ACED3_FromStream(aStream, iPosACED3 + 10);
+  if FHasDELAY then
+    Load_DELAY_FromStream(aStream, iPosDELAY + 10);
+  if FHasEFEDS then
+    Load_EFEDS_FromStream(aStream, iPosEFEDS + 10);
+end;
 
 function T4OPVoiceContainer.Load_VCED_FromStream(var aStream: TMemoryStream;
   aPos: integer): boolean;
@@ -918,8 +978,10 @@ begin
       F4OP_V50_VCED_Params.ACED.params[i] := aStream.ReadByte;
     F4OP_V50_VMEM_Params := VCEDtoVMEM(F4OP_V50_VCED_Params);
     Result := True;
+    FHasACED := True;
   except
     Result := False;
+    FHasACED := False;
   end;
 end;
 
@@ -938,8 +1000,10 @@ begin
       F4OP_V50_VCED_Params.ACED2.params[i] := aStream.ReadByte;
     F4OP_V50_VMEM_Params := VCEDtoVMEM(F4OP_V50_VCED_Params);
     Result := True;
+    FHasACED2 := True;
   except
     Result := False;
+    FHasACED2 := False;
   end;
 end;
 
@@ -949,7 +1013,6 @@ var
   i: integer;
 begin
   Result := False;
-  InitVoice;
   if (aPos + 19) <= aStream.Size then
     aStream.Position := aPos
   else
@@ -959,8 +1022,54 @@ begin
       F4OP_V50_VCED_Params.ACED3.params[i] := aStream.ReadByte;
     F4OP_V50_VMEM_Params := VCEDtoVMEM(F4OP_V50_VCED_Params);
     Result := True;
+    FHasACED3 := True;
   except
     Result := False;
+    FHasACED3 := False;
+  end;
+end;
+
+function T4OPVoiceContainer.Load_DELAY_FromStream(var aStream: TMemoryStream;
+  aPos: integer): boolean;
+var
+  i: integer;
+begin
+  Result := False;
+  if (aPos + 2) <= aStream.Size then
+    aStream.Position := aPos
+  else
+    Exit;
+  try
+    for i := 0 to 1 do
+      F4OP_V50_VCED_Params.DELAY.params[i] := aStream.ReadByte;
+    F4OP_V50_VMEM_Params := VCEDtoVMEM(F4OP_V50_VCED_Params);
+    Result := True;
+    FHasDELAY := True;
+  except
+    Result := False;
+    FHasDELAY := False;
+  end;
+end;
+
+function T4OPVoiceContainer.Load_EFEDS_FromStream(var aStream: TMemoryStream;
+  aPos: integer): boolean;
+var
+  i: integer;
+begin
+  Result := False;
+  if (aPos + 3) <= aStream.Size then
+    aStream.Position := aPos
+  else
+    Exit;
+  try
+    for i := 0 to 2 do
+      F4OP_V50_VCED_Params.EFEDS.params[i] := aStream.ReadByte;
+    F4OP_V50_VMEM_Params := VCEDtoVMEM(F4OP_V50_VCED_Params);
+    Result := True;
+    FHasEFEDS := True;
+  except
+    Result := False;
+    FHasEFEDS := False;
   end;
 end;
 
@@ -974,6 +1083,11 @@ begin
   GetDefinedValues(YS, fInit, F4OP_V50_VCED_Params.EFEDS.params);
 
   F4OP_V50_VMEM_Params := VCEDtoVMEM(F4OP_V50_VCED_Params);
+  FHasACED := False;
+  FHasACED2 := False;
+  FHasACED3 := False;
+  FHasDELAY := False;
+  FHasEFEDS := False;
 end;
 
 function T4OPVoiceContainer.GetVoiceName: string;
@@ -1070,6 +1184,34 @@ begin
     Result := False;
 end;
 
+function T4OPVoiceContainer.Add_DELAY_ToStream(var aStream: TMemoryStream): boolean;
+var
+  i: integer;
+begin
+  if Assigned(aStream) then
+  begin
+    for i := 0 to 1 do
+      aStream.WriteByte(F4OP_V50_VCED_Params.DELAY.params[i]);
+    Result := True;
+  end
+  else
+    Result := False;
+end;
+
+function T4OPVoiceContainer.Add_EFEDS_ToStream(var aStream: TMemoryStream): boolean;
+var
+  i: integer;
+begin
+  if Assigned(aStream) then
+  begin
+    for i := 0 to 2 do
+      aStream.WriteByte(F4OP_V50_VCED_Params.EFEDS.params[i]);
+    Result := True;
+  end
+  else
+    Result := False;
+end;
+
 procedure T4OPVoiceContainer.SysExVoiceToStream(aCh: integer;
   var aStream: TMemoryStream);
 var
@@ -1088,38 +1230,71 @@ begin
   aStream.WriteByte(GetVCEDChecksum);
   aStream.WriteByte($F7);
 
-  aStream.WriteByte($F0);
-  aStream.WriteByte($43);
-  aStream.WriteByte($00 + FCh); //MIDI channel
-  aStream.WriteByte($7E);
-  aStream.WriteByte($00);
-  aStream.WriteByte($21);
-  aStream.WriteAnsiString('LM  8976AE');
-  Add_ACED_ToStream(aStream);
-  aStream.WriteByte(GetACEDChecksum);
-  aStream.WriteByte($F7);
-
-  aStream.WriteByte($F0);
-  aStream.WriteByte($43);
-  aStream.WriteByte($00 + FCh); //MIDI channel
-  aStream.WriteByte($7E);
-  aStream.WriteByte($00);
-  aStream.WriteByte($14);
-  aStream.WriteAnsiString('LM  8023AE');
-  Add_ACED2_ToStream(aStream);
-  aStream.WriteByte(GetACED2Checksum);
-  aStream.WriteByte($F7);
-
-  aStream.WriteByte($F0);
-  aStream.WriteByte($43);
-  aStream.WriteByte($00 + FCh); //MIDI channel
-  aStream.WriteByte($7E);
-  aStream.WriteByte($00);
-  aStream.WriteByte($1E);
-  aStream.WriteAnsiString('LM  8073AE');
-  Add_ACED3_ToStream(aStream);
-  aStream.WriteByte(GetACED3Checksum);
-  aStream.WriteByte($F7);
+  if FHasACED then
+  begin
+    aStream.WriteByte($F0);
+    aStream.WriteByte($43);
+    aStream.WriteByte($00 + FCh); //MIDI channel
+    aStream.WriteByte($7E);
+    aStream.WriteByte($00);
+    aStream.WriteByte($21);
+    aStream.WriteAnsiString('LM  8976AE');
+    Add_ACED_ToStream(aStream);
+    aStream.WriteByte(GetACEDChecksum);
+    aStream.WriteByte($F7);
+  end;
+  if FHasACED2 then
+  begin
+    aStream.WriteByte($F0);
+    aStream.WriteByte($43);
+    aStream.WriteByte($00 + FCh); //MIDI channel
+    aStream.WriteByte($7E);
+    aStream.WriteByte($00);
+    aStream.WriteByte($14);
+    aStream.WriteAnsiString('LM  8023AE');
+    Add_ACED2_ToStream(aStream);
+    aStream.WriteByte(GetACED2Checksum);
+    aStream.WriteByte($F7);
+  end;
+  if FHasACED3 then
+  begin
+    aStream.WriteByte($F0);
+    aStream.WriteByte($43);
+    aStream.WriteByte($00 + FCh); //MIDI channel
+    aStream.WriteByte($7E);
+    aStream.WriteByte($00);
+    aStream.WriteByte($1E);
+    aStream.WriteAnsiString('LM  8073AE');
+    Add_ACED3_ToStream(aStream);
+    aStream.WriteByte(GetACED3Checksum);
+    aStream.WriteByte($F7);
+  end;
+  if FHasDELAY then
+  begin
+    aStream.WriteByte($F0);
+    aStream.WriteByte($43);
+    aStream.WriteByte($00 + FCh); //MIDI channel
+    aStream.WriteByte($7E);
+    aStream.WriteByte($00);
+    aStream.WriteByte($0C);
+    aStream.WriteAnsiString('LM  8054DL');
+    Add_DELAY_ToStream(aStream);
+    aStream.WriteByte(GetDELAYChecksum);
+    aStream.WriteByte($F7);
+  end;
+  if FHasEFEDS then
+  begin
+    aStream.WriteByte($F0);
+    aStream.WriteByte($43);
+    aStream.WriteByte($00 + FCh); //MIDI channel
+    aStream.WriteByte($7E);
+    aStream.WriteByte($00);
+    aStream.WriteByte($0D);
+    aStream.WriteAnsiString('LM  8036EF');
+    Add_EFEDS_ToStream(aStream);
+    aStream.WriteByte(GetEFEDSChecksum);
+    aStream.WriteByte($F7);
+  end;
 end;
 
 function T4OPVoiceContainer.GetVCEDChecksum: byte;
@@ -1179,6 +1354,40 @@ begin
   Add_ACED2_ToStream(tmpStream);
   tmpStream.Position := 0;
   for i := 0 to 29 do
+    checksum := checksum + tmpStream.ReadByte;
+  Result := ((not (checksum and 255)) and 127) + 1;
+  tmpStream.Free;
+end;
+
+function T4OPVoiceContainer.GetDELAYChecksum: byte;
+var
+  checksum: integer;
+  i: integer;
+  tmpStream: TMemoryStream;
+begin
+  checksum := 0;
+  tmpStream := TMemoryStream.Create;
+  tmpStream.WriteAnsiString('LM  8054DL');
+  Add_DELAY_ToStream(tmpStream);
+  tmpStream.Position := 0;
+  for i := 0 to 11 do
+    checksum := checksum + tmpStream.ReadByte;
+  Result := ((not (checksum and 255)) and 127) + 1;
+  tmpStream.Free;
+end;
+
+function T4OPVoiceContainer.GetEFEDSChecksum: byte;
+var
+  checksum: integer;
+  i: integer;
+  tmpStream: TMemoryStream;
+begin
+  checksum := 0;
+  tmpStream := TMemoryStream.Create;
+  tmpStream.WriteAnsiString('LM  8036EF');
+  Add_EFEDS_ToStream(tmpStream);
+  tmpStream.Position := 0;
+  for i := 0 to 12 do
     checksum := checksum + tmpStream.ReadByte;
   Result := ((not (checksum and 255)) and 127) + 1;
   tmpStream.Free;

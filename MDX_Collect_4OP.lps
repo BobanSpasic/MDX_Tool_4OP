@@ -68,6 +68,7 @@
       <Unit>
         <Filename Value="MDX_Collect_4OP.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <CursorPos X="47" Y="10"/>
         <UsageCount Value="89"/>
         <Loaded Value="True"/>
@@ -189,7 +190,6 @@
       </Unit>
       <Unit>
         <Filename Value="units\unt4OPVoice.pas"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <TopLine Value="8"/>
         <CursorPos X="42" Y="28"/>
