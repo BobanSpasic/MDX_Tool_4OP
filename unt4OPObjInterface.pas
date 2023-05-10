@@ -417,6 +417,11 @@ begin
       fVoice := T4OPVoiceContainer.Create;
       fBank.GetVoice(i, fVoice);
       WriteLn('Voice name :"' + fVoice.GetVoiceName + '"');
+      WriteLn('HasACED  = ' + BooltoStr(fVoice.HasACED, true));
+      WriteLn('HasACED2 = ' + BooltoStr(fVoice.HasACED2, true));
+      WriteLn('HasACED3 = ' + BooltoStr(fVoice.HasACED3, true));
+      WriteLn('HasDELAY = ' + BooltoStr(fVoice.HasDELAY, true));
+      WriteLn('HasEFEDS = ' + BooltoStr(fVoice.HasEFEDS, true));
       sVoiceName := IncludeTrailingPathDelimiter(aOutDir) +
         fVoice.CalculateHash + '.4OPvced.syx';
       WriteLn('Create :' + sVoiceName);
@@ -443,7 +448,7 @@ var
   fBank: T4OPBankContainer;
   fVoice: T4OPVoiceContainer;
   msVoice: TMemoryStream;
-  iPos: integer;
+  //iPos: integer;
   abSysExID: array[0..1] of byte = ($F0, $43);
   iCount: integer;
   iBankCount: integer;
@@ -473,29 +478,17 @@ begin
         msVoice := TMemoryStream.Create;
         msVoice.LoadFromFile(IncludeTrailingPathDelimiter(aInputDir) + slVoices[iCount]);
 
-        iPos := -1;
+        //iPos := -1;
         if PosBytes(abSysExID, msVoice) >= 0 then
         begin
           msVoice.Position := 3;
           tmpByte := msVoice.ReadByte;
-          if tmpByte = 0 then
+          if tmpByte = 3 then
           begin
-            iPos := 6;
             WriteLn(slVoices[iCount] + ' - VCED header found');
+            fVoice.Load_Voice_FromStream(msVoice, 0);
+            fBank.SetVoice(i + 1, fVoice);
           end;
-        end
-        else
-        begin
-          if msVoice.Size = 155 then
-          begin
-            iPos := 0;
-            WriteLn(slVoices[iCount] + ' - Headerless file');
-          end;
-        end;
-        if iPos <> -1 then
-        begin
-          fVoice.Load_VCED_FromStream(msVoice, iPos);
-          fBank.SetVoice(i + 1, fVoice);
         end
         else
           WriteLn(slVoices[iCount] + ' - Not a 4OP VCED file');
@@ -515,30 +508,18 @@ begin
       iCount := (i + 1) mod 32;
       msVoice := TMemoryStream.Create;
       msVoice.LoadFromFile(IncludeTrailingPathDelimiter(aInputDir) + slVoices[i]);
-      iPos := -1;
+      //iPos := -1;
       if PosBytes(abSysExID, msVoice) >= 0 then
       begin
         msVoice.Position := 3;
         tmpByte := msVoice.ReadByte;
-        if tmpByte = 0 then
+        if tmpByte = 3 then
         begin
-          iPos := 6;
-          WriteLn(slVoices[i] + ' - VCED header found');
+          WriteLn(slVoices[iCount] + ' - VCED header found');
+          fVoice.Load_Voice_FromStream(msVoice, 0);
+          if iCount = 0 then iCount := 32;
+          fBank.SetVoice(iCount, fVoice);
         end;
-      end
-      else
-      begin
-        if msVoice.Size = 155 then
-        begin
-          iPos := 0;
-          WriteLn(slVoices[i] + ' - Headerless file');
-        end;
-      end;
-      if iPos <> -1 then
-      begin
-        fVoice.Load_VCED_FromStream(msVoice, iPos);
-        if iCount = 0 then iCount := 32;
-        fBank.SetVoice(iCount, fVoice);
       end
       else
         WriteLn(slVoices[iCount] + ' - Not a 4OP VCED file');

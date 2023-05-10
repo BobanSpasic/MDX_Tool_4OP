@@ -487,15 +487,24 @@ begin
   t.VMEM.OP4_Frequency := aPar.VCED.OP4_Frequency and 63;
 
   //now parameters with conversion
-  t.VMEM.OP4_AME_EBS_KVS :=
+  if aPar.VCED.OP4_Key_Vel_Sens > 7 then
+  begin
+    sign := 1;
+      t.VMEM.OP4_AME_EBS_KVS :=
+    ((aPar.VCED.OP4_AM_Enable and 1) shl 6) +
+    ((aPar.VCED.OP4_EG_Bias_Sens and 7) shl 3) + (15 - aPar.VCED.OP4_Key_Vel_Sens and 7);
+  end
+  else
+  begin
+    sign := 0;
+      t.VMEM.OP4_AME_EBS_KVS :=
     ((aPar.VCED.OP4_AM_Enable and 1) shl 6) +
     ((aPar.VCED.OP4_EG_Bias_Sens and 7) shl 3) + (aPar.VCED.OP4_Key_Vel_Sens and 7);
-  if aPar.VCED.OP4_Key_Vel_Sens > 7 then sign := 1
-  else
-    sign := 0;
+  end;
   t.VMEM.OP4_LS2_KVS2_RS_DET :=
-    ((aPar.ACED2.LS_Sign and 1) shl 5) + (sign shl 4) +
+    ((aPar.ACED2.LS_Sign and 1) shl 6) + (sign shl 5) +
     ((aPar.VCED.OP4_Rate_Scaling and 3) shl 3) + (aPar.VCED.OP4_Detune and 7);
+  WriteLn('OP4_LS2_KVS2_RS_DET : ' + Inttostr(t.VMEM.OP4_LS2_KVS2_RS_DET));
 
   //first the parameters without conversion
   t.VMEM.OP3_Attack_Rate := aPar.VCED.OP3_Attack_Rate and 31;
@@ -508,14 +517,22 @@ begin
   t.VMEM.OP3_Frequency := aPar.VCED.OP3_Frequency and 63;
 
   //now parameters with conversion
-  t.VMEM.OP3_AME_EBS_KVS :=
+  if aPar.VCED.OP3_Key_Vel_Sens > 7 then
+  begin
+    sign := 1;
+      t.VMEM.OP3_AME_EBS_KVS :=
+    ((aPar.VCED.OP3_AM_Enable and 1) shl 6) +
+    ((aPar.VCED.OP3_EG_Bias_Sens and 7) shl 3) + (15 - aPar.VCED.OP3_Key_Vel_Sens and 7);
+  end
+  else
+  begin
+    sign := 0;
+      t.VMEM.OP3_AME_EBS_KVS :=
     ((aPar.VCED.OP3_AM_Enable and 1) shl 6) +
     ((aPar.VCED.OP3_EG_Bias_Sens and 7) shl 3) + (aPar.VCED.OP3_Key_Vel_Sens and 7);
-  if aPar.VCED.OP3_Key_Vel_Sens > 7 then sign := 1
-  else
-    sign := 0;
+  end;
   t.VMEM.OP3_LS2_KVS2_RS_DET :=
-    ((aPar.ACED2.LS_Sign and 2) shl 4) + (sign shl 4) +
+    ((aPar.ACED2.LS_Sign and 2) shl 5) + (sign shl 5) +
     ((aPar.VCED.OP3_Rate_Scaling and 3) shl 3) + (aPar.VCED.OP3_Detune and 7);
 
   //first the parameters without conversion
@@ -529,14 +546,22 @@ begin
   t.VMEM.OP2_Frequency := aPar.VCED.OP2_Frequency and 63;
 
   //now parameters with conversion
-  t.VMEM.OP2_AME_EBS_KVS :=
+  if aPar.VCED.OP2_Key_Vel_Sens > 7 then
+  begin
+    sign := 1;
+      t.VMEM.OP2_AME_EBS_KVS :=
+    ((aPar.VCED.OP2_AM_Enable and 1) shl 6) +
+    ((aPar.VCED.OP2_EG_Bias_Sens and 7) shl 3) + (15 - aPar.VCED.OP2_Key_Vel_Sens and 7);
+  end
+  else
+  begin
+    sign := 0;
+      t.VMEM.OP2_AME_EBS_KVS :=
     ((aPar.VCED.OP2_AM_Enable and 1) shl 6) +
     ((aPar.VCED.OP2_EG_Bias_Sens and 7) shl 3) + (aPar.VCED.OP2_Key_Vel_Sens and 7);
-  if aPar.VCED.OP2_Key_Vel_Sens > 7 then sign := 1
-  else
-    sign := 0;
+  end;
   t.VMEM.OP2_LS2_KVS2_RS_DET :=
-    ((aPar.ACED2.LS_Sign and 4) shl 3) + (sign shl 4) +
+    ((aPar.ACED2.LS_Sign and 4) shl 4) + (sign shl 5) +
     ((aPar.VCED.OP2_Rate_Scaling and 3) shl 3) + (aPar.VCED.OP2_Detune and 7);
 
   //first the parameters without conversion
@@ -550,14 +575,22 @@ begin
   t.VMEM.OP1_Frequency := aPar.VCED.OP1_Frequency and 63;
 
   //now parameters with conversion
-  t.VMEM.OP1_AME_EBS_KVS :=
+  if aPar.VCED.OP1_Key_Vel_Sens > 7 then
+  begin
+    sign := 1;
+      t.VMEM.OP1_AME_EBS_KVS :=
+    ((aPar.VCED.OP1_AM_Enable and 1) shl 6) +
+    ((aPar.VCED.OP1_EG_Bias_Sens and 7) shl 3) + (15 - aPar.VCED.OP1_Key_Vel_Sens and 7);
+  end
+  else
+  begin
+    sign := 0;
+      t.VMEM.OP1_AME_EBS_KVS :=
     ((aPar.VCED.OP1_AM_Enable and 1) shl 6) +
     ((aPar.VCED.OP1_EG_Bias_Sens and 7) shl 3) + (aPar.VCED.OP1_Key_Vel_Sens and 7);
-  if aPar.VCED.OP1_Key_Vel_Sens > 7 then sign := 1
-  else
-    sign := 0;
+  end;
   t.VMEM.OP1_LS2_KVS2_RS_DET :=
-    ((aPar.ACED2.LS_Sign and 8) shl 2) + (sign shl 4) +
+    ((aPar.ACED2.LS_Sign and 8) shl 3) + (sign shl 5) +
     ((aPar.VCED.OP1_Rate_Scaling and 3) shl 3) + (aPar.VCED.OP1_Detune and 7);
 
   //global parameters
@@ -655,6 +688,33 @@ begin
   t.AMEM3.Effect_Param_1 := aPar.ACED3.Effect_Param_1 and 127;
   t.AMEM3.Effect_Param_2 := aPar.ACED3.Effect_Param_2 and 127;
   t.AMEM3.Effect_Param_3 := aPar.ACED3.Effect_Param_3 and 127;
+  t.AMEM3.Reserved_101 := 0;
+  t.AMEM3.Reserved_102 := 0;
+  t.AMEM3.Reserved_103 := 0;
+  t.AMEM3.Reserved_104 := 0;
+  t.AMEM3.Reserved_105 := 0;
+  t.AMEM3.Reserved_106 := 0;
+  t.AMEM3.Reserved_107 := 0;
+  t.AMEM3.Reserved_108 := 0;
+  t.AMEM3.Reserved_109 := 0;
+  t.AMEM3.Reserved_110 := 0;
+  t.AMEM3.Reserved_111 := 0;
+  t.AMEM3.Reserved_112 := 0;
+  t.AMEM3.Reserved_113 := 0;
+  t.AMEM3.Reserved_114 := 0;
+  t.AMEM3.Reserved_115 := 0;
+  t.AMEM3.Reserved_116 := 0;
+  t.AMEM3.Reserved_117 := 0;
+  t.AMEM3.Reserved_118 := 0;
+  t.AMEM3.Reserved_119 := 0;
+  t.AMEM3.Reserved_120 := 0;
+  t.AMEM3.Reserved_121 := 0;
+  t.AMEM3.Reserved_122 := 0;
+  t.AMEM3.Reserved_123 := 0;
+  t.AMEM3.Reserved_124 := 0;
+  t.AMEM3.Reserved_125 := 0;
+  t.AMEM3.Reserved_126 := 0;
+  t.AMEM3.Reserved_127 := 0;
 
   Result := t;
 end;
@@ -676,7 +736,11 @@ begin
   t.VCED.OP4_AM_Enable := (aPar.VMEM.OP4_AME_EBS_KVS shr 6) and 1;
   kvs1 := aPar.VMEM.OP4_AME_EBS_KVS and 7;
   kvs2 := (aPar.VMEM.OP4_LS2_KVS2_RS_DET shr 5) and 1;
-  t.VCED.OP4_Key_Vel_Sens := kvs1 + 8 * kvs2;
+  if kvs2 = 0 then
+    t.VCED.OP4_Key_Vel_Sens := kvs1
+  else
+    t.VCED.OP4_Key_Vel_Sens := 15 - kvs1;
+  WriteLn('OP4_KVS : ' + Inttostr(t.VCED.OP4_Key_Vel_Sens));
   t.VCED.OP4_OP_Output_Level := aPar.VMEM.OP4_OP_Output_Level and 127;
   t.VCED.OP4_Frequency := aPar.VMEM.OP4_Frequency and 63;
   t.VCED.OP4_Detune := aPar.VMEM.OP4_LS2_KVS2_RS_DET and 7;
@@ -700,7 +764,11 @@ begin
   t.VCED.OP3_AM_Enable := (aPar.VMEM.OP3_AME_EBS_KVS shr 6) and 1;
   kvs1 := aPar.VMEM.OP3_AME_EBS_KVS and 7;
   kvs2 := (aPar.VMEM.OP3_LS2_KVS2_RS_DET shr 5) and 1;
-  t.VCED.OP3_Key_Vel_Sens := kvs1 + 8 * kvs2;
+  if kvs2 = 0 then
+    t.VCED.OP3_Key_Vel_Sens := kvs1
+  else
+    t.VCED.OP3_Key_Vel_Sens := 15 - kvs1;
+  WriteLn('OP3_KVS : ' + Inttostr(t.VCED.OP3_Key_Vel_Sens));
   t.VCED.OP3_OP_Output_Level := aPar.VMEM.OP3_OP_Output_Level and 127;
   t.VCED.OP3_Frequency := aPar.VMEM.OP3_Frequency and 63;
   t.VCED.OP3_Detune := aPar.VMEM.OP3_LS2_KVS2_RS_DET and 7;
@@ -724,7 +792,11 @@ begin
   t.VCED.OP2_AM_Enable := (aPar.VMEM.OP2_AME_EBS_KVS shr 6) and 1;
   kvs1 := aPar.VMEM.OP2_AME_EBS_KVS and 7;
   kvs2 := (aPar.VMEM.OP2_LS2_KVS2_RS_DET shr 5) and 1;
-  t.VCED.OP2_Key_Vel_Sens := kvs1 + 8 * kvs2;
+  if kvs2 = 0 then
+    t.VCED.OP2_Key_Vel_Sens := kvs1
+  else
+    t.VCED.OP2_Key_Vel_Sens := 15 - kvs1;
+  WriteLn('OP2_KVS : ' + Inttostr(t.VCED.OP2_Key_Vel_Sens));
   t.VCED.OP2_OP_Output_Level := aPar.VMEM.OP2_OP_Output_Level and 127;
   t.VCED.OP2_Frequency := aPar.VMEM.OP2_Frequency and 63;
   t.VCED.OP2_Detune := aPar.VMEM.OP2_LS2_KVS2_RS_DET and 7;
@@ -748,7 +820,11 @@ begin
   t.VCED.OP1_AM_Enable := (aPar.VMEM.OP1_AME_EBS_KVS shr 6) and 1;
   kvs1 := aPar.VMEM.OP1_AME_EBS_KVS and 7;
   kvs2 := (aPar.VMEM.OP1_LS2_KVS2_RS_DET shr 5) and 1;
-  t.VCED.OP1_Key_Vel_Sens := kvs1 + 8 * kvs2;
+  if kvs2 = 0 then
+    t.VCED.OP1_Key_Vel_Sens := kvs1
+  else
+    t.VCED.OP1_Key_Vel_Sens := 15 - kvs1;
+  WriteLn('OP1_KVS : ' + Inttostr(t.VCED.OP1_Key_Vel_Sens));
   t.VCED.OP1_OP_Output_Level := aPar.VMEM.OP1_OP_Output_Level and 127;
   t.VCED.OP1_Frequency := aPar.VMEM.OP1_Frequency and 63;
   t.VCED.OP1_Detune := aPar.VMEM.OP1_LS2_KVS2_RS_DET and 7;
@@ -796,12 +872,12 @@ begin
   t.VCED.VOICE_NAME_CHAR_8 := aPar.VMEM.VOICE_NAME_CHAR_8;
   t.VCED.VOICE_NAME_CHAR_9 := aPar.VMEM.VOICE_NAME_CHAR_9;
   t.VCED.VOICE_NAME_CHAR_10 := aPar.VMEM.VOICE_NAME_CHAR_10;
-  t.VCED.Pitch_EG_Level_1 := aPAr.VMEM.PL1;
-  t.VCED.Pitch_EG_Level_2 := aPAr.VMEM.PL2;
-  t.VCED.Pitch_EG_Level_3 := aPAr.VMEM.PL3;
-  t.VCED.Pitch_EG_Rate_1 := aPAr.VMEM.PR1;
-  t.VCED.Pitch_EG_Rate_2 := aPAr.VMEM.PR2;
-  t.VCED.Pitch_EG_Rate_3 := aPAr.VMEM.PR3;
+  t.VCED.Pitch_EG_Level_1 := aPar.VMEM.PL1;
+  t.VCED.Pitch_EG_Level_2 := aPar.VMEM.PL2;
+  t.VCED.Pitch_EG_Level_3 := aPar.VMEM.PL3;
+  t.VCED.Pitch_EG_Rate_1 := aPar.VMEM.PR1;
+  t.VCED.Pitch_EG_Rate_2 := aPar.VMEM.PR2;
+  t.VCED.Pitch_EG_Rate_3 := aPar.VMEM.PR3;
   t.VCED.OPERATOR_ON_OFF := 15; //just set to all OP=on; not part of VMEM
 
   t.ACED.Reverb_Rate := aPar.AMEM.Reverb_Rate and 7;
@@ -810,6 +886,19 @@ begin
 
   if (t.ACED.Reverb_Rate + t.ACED.FC_Pitch + t.ACED.FC_Amplitude) <> 0 then
     FHasACED := True;
+  if (t.ACED.OP1_EG_Shift + t.ACED.OP1_Fixed_Freq + t.ACED.OP1_Fixed_Freq_Range +
+    t.ACED.OP1_Freq_Range_Fine + t.ACED.OP1_Operator_Waveform) <> 0 then
+    FHasACED := True;
+  if (t.ACED.OP2_EG_Shift + t.ACED.OP2_Fixed_Freq + t.ACED.OP2_Fixed_Freq_Range +
+    t.ACED.OP2_Freq_Range_Fine + t.ACED.OP2_Operator_Waveform) <> 0 then
+    FHasACED := True;
+  if (t.ACED.OP3_EG_Shift + t.ACED.OP3_Fixed_Freq + t.ACED.OP3_Fixed_Freq_Range +
+    t.ACED.OP3_Freq_Range_Fine + t.ACED.OP3_Operator_Waveform) <> 0 then
+    FHasACED := True;
+  if (t.ACED.OP4_EG_Shift + t.ACED.OP4_Fixed_Freq + t.ACED.OP4_Fixed_Freq_Range +
+    t.ACED.OP4_Freq_Range_Fine + t.ACED.OP4_Operator_Waveform) <> 0 then
+    FHasACED := True;
+
 
   t.ACED2.AT_Pitch := aPar.AMEM3.AT_Pitch and 127;
   t.ACED2.AT_Amplitude := aPar.AMEM3.AT_Amplitude and 127;
@@ -818,9 +907,10 @@ begin
 
   b0 := (aPar.VMEM.OP4_LS2_KVS2_RS_DET shr 6) and 1;
   b1 := (aPar.VMEM.OP3_LS2_KVS2_RS_DET shr 5) and 2;
-  b2 := (aPar.VMEM.OP2_LS2_KVS2_RS_DET shr 4) and 3;
-  b3 := (aPar.VMEM.OP1_LS2_KVS2_RS_DET shr 3) and 4;
+  b2 := (aPar.VMEM.OP2_LS2_KVS2_RS_DET shr 4) and 4;
+  b3 := (aPar.VMEM.OP1_LS2_KVS2_RS_DET shr 3) and 8;
   t.ACED2.LS_Sign := b0 + b1 + b2 + b3;
+  t.ACED2.Reserved := 0;
 
   if (t.ACED2.AT_Pitch + t.ACED2.AT_Amplitude + t.ACED2.AT_Pitch_Bias +
     t.ACED2.AT_EG_Bias + t.ACED2.LS_Sign) <> 0 then
@@ -833,6 +923,19 @@ begin
   t.ACED3.Effect_Param_1 := aPar.AMEM3.Effect_Param_1;
   t.ACED3.Effect_Param_2 := aPar.AMEM3.Effect_Param_2;
   t.ACED3.Effect_Param_3 := aPar.AMEM3.Effect_Param_3;
+  t.ACED3.Reserved_40 := 0;
+  t.ACED3.Reserved_41 := 0;
+  t.ACED3.Reserved_42 := 0;
+  t.ACED3.Reserved_43 := 0;
+  t.ACED3.Reserved_44 := 0;
+  t.ACED3.Reserved_45 := 0;
+  t.ACED3.Reserved_46 := 0;
+  t.ACED3.Reserved_47 := 0;
+  t.ACED3.Reserved_48 := 0;
+  t.ACED3.Reserved_49 := 0;
+  t.ACED3.Reserved_50 := 0;
+  t.ACED3.Reserved_51 := 0;
+  t.ACED3.Reserved_52 := 0;
 
   if (t.ACED3.Effect_Select + t.ACED3.Balance + t.ACED3.Out_Level +
     t.ACED3.Effect_Param_1 + t.ACED3.Effect_Param_2 + t.ACED3.Effect_Param_3) <> 0 then
@@ -840,7 +943,7 @@ begin
 
   t.EFEDS.Preset := aPar.AMEM3.Effect_Preset_Nr;
   t.EFEDS.Time := aPar.AMEM3.Effect_Time;
-  t.EFEDS.Balance := aPar.AMEM3.Balance;
+  t.EFEDS.Balance := aPar.AMEM3.Effect_Balance;
 
   if (t.EFEDS.Preset + t.EFEDS.Time + t.EFEDS.Balance) <> 0 then FHasEFEDS := True;
 
@@ -908,14 +1011,19 @@ var
   iPosDELAY: integer;
   iPosEFEDS: integer;
 begin
+  InitVoice;
   iPosVCED := PosBytes([$03, $00, $5D], aStream, aPos);
   if iPosVCED - 3 >= 0 then
   begin
     aStream.Position := iPosVCED - 3;
     if (aStream.ReadByte = $F0) and (aStream.ReadByte = $43) then
       iPosVCED := iPosVCED - 3
-    else iPosVCED := -1;
+    else
+      iPosVCED := -1;
   end;
+  Result := False;
+  if iPosVCED <> -1 then
+    Result := Load_VCED_FromStream(aStream, iPosVCED + 6);
   iPosACED := PosBytes(abLMType[0], aStream, aPos);
   FHasACED := iPosACED <> -1;
   iPosACED2 := PosBytes(abLMType[1], aStream, aPos);
@@ -926,9 +1034,7 @@ begin
   FHasDELAY := iPosDELAY <> -1;
   iPosEFEDS := PosBytes(abLMType[7], aStream, aPos);
   FHasEFEDS := iPosEFEDS <> -1;
-  Result := False;
-  if iPosVCED <> -1 then
-    Result := Load_VCED_FromStream(aStream, iPosVCED + 6);
+
   if FHasACED then
     Load_ACED_FromStream(aStream, iPosACED + 10);
   if FHasACED2 then
@@ -939,6 +1045,12 @@ begin
     Load_DELAY_FromStream(aStream, iPosDELAY + 10);
   if FHasEFEDS then
     Load_EFEDS_FromStream(aStream, iPosEFEDS + 10);
+
+  WriteLn('HasACED  = ' + BooltoStr(FHasACED));
+  WriteLn('HasACED2 = ' + BooltoStr(FHasACED2));
+  WriteLn('HasACED3 = ' + BooltoStr(FHasACED3));
+  WriteLn('HasDELAY = ' + BooltoStr(FHasDELAY));
+  WriteLn('HasEFEDS = ' + BooltoStr(FHasEFEDS));
 end;
 
 function T4OPVoiceContainer.Load_VCED_FromStream(var aStream: TMemoryStream;
@@ -1230,8 +1342,8 @@ begin
   aStream.WriteByte(GetVCEDChecksum);
   aStream.WriteByte($F7);
 
-  if FHasACED then
-  begin
+//  if FHasACED then
+//  begin
     aStream.WriteByte($F0);
     aStream.WriteByte($43);
     aStream.WriteByte($00 + FCh); //MIDI channel
@@ -1242,9 +1354,9 @@ begin
     Add_ACED_ToStream(aStream);
     aStream.WriteByte(GetACEDChecksum);
     aStream.WriteByte($F7);
-  end;
-  if FHasACED2 then
-  begin
+//  end;
+//  if FHasACED2 then
+//  begin
     aStream.WriteByte($F0);
     aStream.WriteByte($43);
     aStream.WriteByte($00 + FCh); //MIDI channel
@@ -1255,9 +1367,9 @@ begin
     Add_ACED2_ToStream(aStream);
     aStream.WriteByte(GetACED2Checksum);
     aStream.WriteByte($F7);
-  end;
-  if FHasACED3 then
-  begin
+//  end;
+//  if FHasACED3 then
+//  begin
     aStream.WriteByte($F0);
     aStream.WriteByte($43);
     aStream.WriteByte($00 + FCh); //MIDI channel
@@ -1268,9 +1380,9 @@ begin
     Add_ACED3_ToStream(aStream);
     aStream.WriteByte(GetACED3Checksum);
     aStream.WriteByte($F7);
-  end;
-  if FHasDELAY then
-  begin
+//  end;
+//  if FHasDELAY then
+//  begin
     aStream.WriteByte($F0);
     aStream.WriteByte($43);
     aStream.WriteByte($00 + FCh); //MIDI channel
@@ -1281,9 +1393,9 @@ begin
     Add_DELAY_ToStream(aStream);
     aStream.WriteByte(GetDELAYChecksum);
     aStream.WriteByte($F7);
-  end;
-  if FHasEFEDS then
-  begin
+//  end;
+//  if FHasEFEDS then
+//  begin
     aStream.WriteByte($F0);
     aStream.WriteByte($43);
     aStream.WriteByte($00 + FCh); //MIDI channel
@@ -1294,7 +1406,7 @@ begin
     Add_EFEDS_ToStream(aStream);
     aStream.WriteByte(GetEFEDSChecksum);
     aStream.WriteByte($F7);
-  end;
+//  end;
 end;
 
 function T4OPVoiceContainer.GetVCEDChecksum: byte;
@@ -1351,7 +1463,7 @@ begin
   checksum := 0;
   tmpStream := TMemoryStream.Create;
   tmpStream.WriteAnsiString('LM  8073AE');
-  Add_ACED2_ToStream(tmpStream);
+  Add_ACED3_ToStream(tmpStream);
   tmpStream.Position := 0;
   for i := 0 to 29 do
     checksum := checksum + tmpStream.ReadByte;
