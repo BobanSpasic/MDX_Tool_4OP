@@ -178,7 +178,13 @@ begin
           end;
         //Exit;
       end;
-      if Result <> -1 then Exit;
+      if Result <> -1 then Exit
+      else
+      begin
+        inc (i);
+        if i < aStream.Size then
+        aStream.Position := i;
+      end;
     end;
   end;
 end;

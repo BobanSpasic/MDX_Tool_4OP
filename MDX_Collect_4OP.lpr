@@ -17,7 +17,7 @@ program MDX_Collect_4OP;
 uses
  {$IFDEF UNIX}
   cthreads,
-                 {$ENDIF}
+ {$ENDIF}
   Classes,
   SysUtils,
   CustApp,
@@ -120,7 +120,7 @@ type
       else
       begin
         if pos(':\', fReportDir) = 0 then
-        fReportDir := IncludeTrailingPathDelimiter(GetCurrentDir) + fReportDir;
+          fReportDir := IncludeTrailingPathDelimiter(GetCurrentDir) + fReportDir;
         WriteLn('Master list: ' + fMaster);
         WriteLn('Incoming list: ' + fIncoming);
         WriteLn('Reports directory: ' + fReportDir);
@@ -129,7 +129,7 @@ type
       end;
     end;
 
-     if HasOption('t', 'movetree') then
+    if HasOption('t', 'movetree') then
     begin
       if (fOutput = '') or (fIncoming = '') or (fInputDir = '') then
       begin

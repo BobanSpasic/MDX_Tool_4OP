@@ -38,6 +38,7 @@ function CheckVCEDIntegrity(aStream: TMemoryStream; aPos: integer;
 procedure NormalizeVMEM(aStream: TMemoryStream; aPos: integer; aFile: string);
 procedure NormalizeVCED(aStream: TMemoryStream; aPos: integer; aFile: string);
 function MultiVCED2VMEM(aFileName: string; const Report: TStrings): boolean;
+function Transcribe(aFile: string): boolean;
 
 implementation
 
@@ -85,9 +86,6 @@ end;
 function Hash2Name(aFile: string): boolean;
 var
   fVoice: T4OPVoiceContainer;
-  iPos: integer;
-  abSysExID: array[0..1] of byte = ($F0, $43);
-  tmpByte: byte;
   fStream: TMemoryStream;
   fDirectory: string;
   sPart: string;
@@ -98,29 +96,9 @@ begin
   fVoice := T4OPVoiceContainer.Create;
   fStream := TMemoryStream.Create;
   fStream.LoadFromFile(aFile);
-  iPos := -1;
-  if PosBytes(abSysExID, fStream) >= 0 then
-  begin
-    fStream.Position := 3;
-    tmpByte := fStream.ReadByte;
-    if tmpByte = 0 then
-    begin
-      iPos := 6;
-      WriteLn('    VCED header found');
-    end;
-  end
-  else
-  begin
-    if fStream.Size = 155 then
-    begin
-      iPos := 0;
-      WriteLn('    Headerless file');
-    end;
-  end;
   try
-    if iPos <> -1 then
+    if fVoice.Load_Voice_FromStream(fStream, 0) then
     begin
-      fVoice.Load_VCED_FromStream(fStream, iPos);
       fDirectory := IncludeTrailingPathDelimiter(ExtractFileDir(aFile));
       if fDirectory = PathDelim then fDirectory := '';
       sPart := fDirectory + fVoice.CalculateHash;
@@ -338,8 +316,8 @@ begin
             msVCED.WriteByte($43);
             msVCED.WriteByte($00);
             msVCED.WriteByte($03);
-            msVCED.WriteByte($01);
-            msVCED.WriteByte($1B);
+            msVCED.WriteByte($00);
+            msVCED.WriteByte($5D);
 
             msHeadless.CopyFrom(aStream, 93);
             msHeadless.Position := 0;
@@ -878,16 +856,16 @@ begin
   fVoice := T4OPVoiceContainer.Create;
   msFile := TMemoryStream.Create;
   msFile.LoadFromFile(aFileName);
-  if msFile.Size = 4960 then
+  if msFile.Size = 4544 then
   begin
     Report.Add('Multi-VCED file found. Converting to VMEM');
     i := 0;
     iVoiceNr := 1;
-    while i < 4960 do
+    while i < 4544 do
     begin
-      fVoice.Load_VCED_FromStream(msFile, i);
+      fVoice.Load_Voice_FromStream(msFile, i);
       fBank.SetVoice(iVoiceNr, fVoice);
-      Inc(i, 155);
+      Inc(i, 142);
       Inc(iVoiceNr);
     end;
     Result := True;
@@ -896,6 +874,28 @@ begin
   else
     Report.Add('Not a Multi-VCED');
   fBank.Free;
+  fVoice.Free;
+end;
+
+function Transcribe(aFile: string): boolean;
+var
+  fVoice: T4OPVoiceContainer;
+  msFile: TMemoryStream;
+begin
+  Result := False;
+  fVoice := T4OPVoiceContainer.Create;
+  msFile := TMemoryStream.Create;
+  msFile.LoadFromFile(aFile);
+  if (msFile.Size = 101) or (msFile.Size = 142) or (msFile.Size = 170) then
+  begin
+    Result := fVoice.Load_Voice_FromStream(msFile, 0);
+    if Result then
+    begin
+      fVoice.SysExVoiceToStream(1, msFile);
+      msFile.SaveToFile(ExtractFileNameWithoutExt(aFile) + '.fat.syx');
+    end;
+  end;
+  msFile.Free;
   fVoice.Free;
 end;
 

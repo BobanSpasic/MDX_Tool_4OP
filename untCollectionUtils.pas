@@ -52,15 +52,15 @@ begin
     if not FileExists(slFiles[i]) then Break;
     msFileStream := TMemoryStream.Create;
     msFileStream.LoadFromFile(slFiles[i]);
-    //is a pure VCED?
-    if msFileStream.Size = 163 then
+    //is a fat VCED?
+    if msFileStream.Size = 269 then
     begin
       iStart := 0;
       iDmp := 0;
       if Contains4OPVoiceDump(msFileStream, iStart, iDmp) then
       begin
         fDXVoice := T4OPVoiceContainer.Create;
-        fDXVoice.Load_VCED_FromStream(msFileStream, iDmp);
+        fDXVoice.Load_Voice_FromStream(msFileStream, 0);
         slHashes.AddPair(fDXVoice.CalculateHash, slFiles[i] + #9#9 +
           '01: ' + fDXVoice.GetVoiceName);
         fDXVoice.Free;

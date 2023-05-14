@@ -19,7 +19,7 @@ program MDX_Tool_4OP;
 uses
  {$IFDEF UNIX}
   cthreads,
-                  {$ENDIF}
+                   {$ENDIF}
   Classes,
   SysUtils,
   CustApp,
@@ -58,8 +58,8 @@ type
     bNullVoice := False;
     fInput := '';
     // quick check parameters
-    ErrorMsg := CheckOptions('himnzywrvcsxjqf:d:',
-      'help info hname vname normalize markcorr marknull repair voices crop split xsplit join quest file: dir:');
+    ErrorMsg := CheckOptions('himnzywrvcsxjqtf:d:',
+      'help info hname vname normalize markcorr marknull repair voices crop split xsplit join quest transcribe file: dir:');
 
     if ErrorMsg <> '' then
     begin
@@ -524,6 +524,22 @@ type
           msInputFile.Free;
           WriteLn('Done!');
         end;
+      end;
+    end;
+
+    if HasOption('t', 'transcribe') then
+    begin
+      if not FileExists(fInput) then
+      begin
+        WriteLn('Parameter -f {filename} is missing or the file {filename} could not be found');
+        Terminate;
+        Exit;
+      end
+      else
+      begin
+        if Transcribe(fInput) then
+          WriteLn('Done!')
+        else WriteLn('Fail!')
       end;
     end;
 

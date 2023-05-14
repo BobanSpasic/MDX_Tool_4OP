@@ -494,9 +494,9 @@ begin
       dummy := dmp.ReadByte;
       if not (dummy = $03) then StartPos := -1;     // $03 - 1 Voice dump
       dummy := dmp.ReadByte;
-      if not (dummy = $01) then StartPos := -1;     // byte count MS
+      if not (dummy = $00) then StartPos := -1;     // byte count MS
       dummy := dmp.ReadByte;
-      if not (dummy = $1B) then StartPos := -1;     // byte count LS
+      if not (dummy = $5D) then StartPos := -1;     // byte count LS
     end;
     if StartPos <> -1 then
     begin
