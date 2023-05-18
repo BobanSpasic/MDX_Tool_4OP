@@ -69,7 +69,8 @@
         <Filename Value="MDX_Hash_Test_4OP.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos X="12" Y="10"/>
+        <TopLine Value="127"/>
+        <CursorPos X="31" Y="144"/>
         <UsageCount Value="129"/>
         <Loaded Value="True"/>
       </Unit>
@@ -178,7 +179,12 @@
         <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory>
+      <Position>
+        <Filename Value="MDX_Hash_Test_4OP.lpr"/>
+        <Caret Line="10" Column="12" TopLine="109"/>
+      </Position>
+    </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode="default">

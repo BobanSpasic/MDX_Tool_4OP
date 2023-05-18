@@ -443,7 +443,7 @@ type
 
     procedure InitVoice;
     function GetVoiceName: string;
-    function CalculateHash: string;
+    function CalculateHash(aLevel: integer = 3): string;
     procedure SysExVoiceToStream(aCh: integer; var aStream: TMemoryStream);
     function GetVCEDChecksum: byte;
     function GetACEDChecksum: byte;
@@ -492,7 +492,8 @@ begin
     sign := 1;
     t.VMEM.OP4_AME_EBS_KVS :=
       ((aPar.VCED.OP4_AM_Enable and 1) shl 6) +
-      ((aPar.VCED.OP4_EG_Bias_Sens and 7) shl 3) + (15 - aPar.VCED.OP4_Key_Vel_Sens and 7);
+      ((aPar.VCED.OP4_EG_Bias_Sens and 7) shl 3) +
+      (15 - aPar.VCED.OP4_Key_Vel_Sens and 7);
   end
   else
   begin
@@ -524,7 +525,8 @@ begin
     sign := 1;
     t.VMEM.OP3_AME_EBS_KVS :=
       ((aPar.VCED.OP3_AM_Enable and 1) shl 6) +
-      ((aPar.VCED.OP3_EG_Bias_Sens and 7) shl 3) + (15 - aPar.VCED.OP3_Key_Vel_Sens and 7);
+      ((aPar.VCED.OP3_EG_Bias_Sens and 7) shl 3) +
+      (15 - aPar.VCED.OP3_Key_Vel_Sens and 7);
   end
   else
   begin
@@ -553,7 +555,8 @@ begin
     sign := 1;
     t.VMEM.OP2_AME_EBS_KVS :=
       ((aPar.VCED.OP2_AM_Enable and 1) shl 6) +
-      ((aPar.VCED.OP2_EG_Bias_Sens and 7) shl 3) + (15 - aPar.VCED.OP2_Key_Vel_Sens and 7);
+      ((aPar.VCED.OP2_EG_Bias_Sens and 7) shl 3) +
+      (15 - aPar.VCED.OP2_Key_Vel_Sens and 7);
   end
   else
   begin
@@ -582,7 +585,8 @@ begin
     sign := 1;
     t.VMEM.OP1_AME_EBS_KVS :=
       ((aPar.VCED.OP1_AM_Enable and 1) shl 6) +
-      ((aPar.VCED.OP1_EG_Bias_Sens and 7) shl 3) + (15 - aPar.VCED.OP1_Key_Vel_Sens and 7);
+      ((aPar.VCED.OP1_EG_Bias_Sens and 7) shl 3) +
+      (15 - aPar.VCED.OP1_Key_Vel_Sens and 7);
   end
   else
   begin
@@ -1231,7 +1235,7 @@ begin
   Result := s;
 end;
 
-function T4OPVoiceContainer.CalculateHash: string;
+function T4OPVoiceContainer.CalculateHash(aLevel: integer = 3): string;
 var
   aStream: TMemoryStream;
   i: integer;
@@ -1239,12 +1243,21 @@ begin
   aStream := TMemoryStream.Create;
   for i := 0 to 76 do
     aStream.WriteByte(F4OP_V50_VCED_Params.VCED.params[i]);
-  for i := 0 to 22 do
-    aStream.WriteByte(F4OP_V50_VCED_Params.ACED.params[i]);
-  for i := 0 to 9 do
-    aStream.WriteByte(F4OP_V50_VCED_Params.ACED2.params[i]);
-  for i := 0 to 19 do
-    aStream.WriteByte(F4OP_V50_VCED_Params.ACED3.params[i]);
+  if aLevel > 1 then  //TX81z
+  begin
+    for i := 0 to 22 do
+      aStream.WriteByte(F4OP_V50_VCED_Params.ACED.params[i]);
+    if aLevel > 2 then  //DX11 = default
+    begin
+      for i := 0 to 9 do
+        aStream.WriteByte(F4OP_V50_VCED_Params.ACED2.params[i]);
+      if aLevel > 3 then //V50
+      begin
+        for i := 0 to 19 do
+          aStream.WriteByte(F4OP_V50_VCED_Params.ACED3.params[i]);
+      end;
+    end;
+  end;
 
   aStream.Position := 0;
   Result := THashFactory.TCrypto.CreateSHA2_256().ComputeStream(aStream).ToString();

@@ -46,16 +46,19 @@ type
     fReportDir: string;
     fInputDir: string;
     fOutput: string;
+    sLevel: string;
+    iLevel: integer;
   begin
     fMaster := '';
     fIncoming := '';
     fReportDir := '';
     fInputDir := '';
     fOutput := '';
+    sLevel := '';
 
     // quick check parameters
-    ErrorMsg := CheckOptions('hactm:i:r:d:o:',
-      'help analyze compare movetree master: incoming: report: dir: output:');
+    ErrorMsg := CheckOptions('hactm:i:r:d:o:l::',
+      'help analyze compare movetree master: incoming: report: dir: output:level::');
 
     if ErrorMsg <> '' then
     begin
@@ -82,6 +85,9 @@ type
       fInputDir := IncludeTrailingPathDelimiter(GetOptionValue('d', 'dir'));
     if HasOption('o', 'output') then
       fOutput := IncludeTrailingPathDelimiter(GetOptionValue('o', 'output'));
+    if HasOption('l', 'level') then
+      sLevel := GetOptionValue('o', 'output');
+    iLevel := StrToIntDef(sLEvel, 3); //3 = DX11 parameter-set
 
     if HasOption('a', 'analyze') then
     begin
@@ -104,7 +110,7 @@ type
         if not DirectoryExists(fReportDir) then CreateDir(fReportDir);
         WriteLn('Input directory: ' + fInputDir);
         WriteLn('Report directory: ' + fReportDir);
-        Analyze(fInputDir, fReportDir);
+        Analyze(fInputDir, fReportDir, iLevel);
         WriteLn('Done!');
       end;
     end;
@@ -165,7 +171,7 @@ type
   begin
     writeln('');
     writeln('');
-    writeln('MDX_Collect 1.7 - tool for managing 4OP SysEx collections');
+    writeln('MDX_Collect_4OP 1.7 - tool for managing 4OP SysEx collections');
     writeln('Author: Boban Spasic');
     writeln('https://github.com/BobanSpasic/MDX_Tool');
     writeln('');
@@ -176,6 +182,9 @@ type
     writeln('   -a                 --analyze                 Make a hash list of VMEM/VCED files in a directory');
     writeln('       -d {directory}     --dir={directory}     Input directory');
     writeln('       -r {directory}     --report={directory}  Output directory for the reports');
+    writeln('       -l {level}         --level={level}       Which parameter-set is used for calculating hash sum');
+    writeLn('                                                1 = DX21, 2 = TX81z, 3 = DX11, 4 = V50');
+    writeLn('                                                If not specified, the default value 3 (DX11) is used');
     writeLn('');
     writeln('   -c                 --compare                 Compare two hash lists');
     writeln('       -m {filename}      --master={filename}   Hash list of your collection');

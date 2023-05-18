@@ -68,9 +68,10 @@
       <Unit>
         <Filename Value="MDX_Collect_4OP.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="162"/>
-        <CursorPos Y="107"/>
-        <UsageCount Value="90"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="164"/>
+        <CursorPos X="58" Y="185"/>
+        <UsageCount Value="93"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -79,7 +80,7 @@
         <EditorIndex Value="4"/>
         <TopLine Value="47"/>
         <CursorPos X="52" Y="73"/>
-        <UsageCount Value="52"/>
+        <UsageCount Value="55"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -88,17 +89,16 @@
         <EditorIndex Value="3"/>
         <TopLine Value="470"/>
         <CursorPos X="26" Y="499"/>
-        <UsageCount Value="50"/>
+        <UsageCount Value="53"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="untCollectionUtils.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="52"/>
-        <CursorPos X="55" Y="63"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="49"/>
+        <CursorPos X="50" Y="82"/>
+        <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -186,7 +186,7 @@
         <EditorIndex Value="5"/>
         <TopLine Value="169"/>
         <CursorPos X="10" Y="330"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="19"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -194,7 +194,7 @@
         <EditorIndex Value="6"/>
         <TopLine Value="1232"/>
         <CursorPos X="3" Y="1239"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -202,35 +202,11 @@
         <EditorIndex Value="2"/>
         <TopLine Value="99"/>
         <CursorPos Y="114"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="untCollectionUtils.pas"/>
-        <Caret Line="58" TopLine="36"/>
-      </Position>
-      <Position>
-        <Filename Value="untCollectionUtils.pas"/>
-        <Caret Line="59" TopLine="36"/>
-      </Position>
-      <Position>
-        <Filename Value="untCollectionUtils.pas"/>
-        <Caret Line="60" TopLine="36"/>
-      </Position>
-      <Position>
-        <Filename Value="untCollectionUtils.pas"/>
-        <Caret Line="70" TopLine="55"/>
-      </Position>
-      <Position>
-        <Filename Value="untCollectionUtils.pas"/>
-        <Caret Line="89" TopLine="74"/>
-      </Position>
-      <Position>
-        <Filename Value="untCollectionUtils.pas"/>
-        <Caret Line="49" TopLine="34"/>
-      </Position>
+    <JumpHistory HistoryIndex="28">
       <Position>
         <Filename Value="untCollectionUtils.pas"/>
         <Caret Line="51" TopLine="34"/>
@@ -327,6 +303,26 @@
         <Filename Value="units\unt4OPVoice.pas"/>
         <Caret Line="446" Column="20" TopLine="429"/>
       </Position>
+      <Position>
+        <Filename Value="untCollectionUtils.pas"/>
+        <Caret Line="29" Column="60" TopLine="15"/>
+      </Position>
+      <Position>
+        <Filename Value="untCollectionUtils.pas"/>
+        <Caret Line="23" Column="87" TopLine="15"/>
+      </Position>
+      <Position>
+        <Filename Value="untCollectionUtils.pas"/>
+        <Caret Line="64" Column="56" TopLine="31"/>
+      </Position>
+      <Position>
+        <Filename Value="untCollectionUtils.pas"/>
+        <Caret Line="82" Column="58" TopLine="49"/>
+      </Position>
+      <Position>
+        <Filename Value="untCollectionUtils.pas"/>
+        <Caret Line="64" Column="48" TopLine="49"/>
+      </Position>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
@@ -364,15 +360,6 @@
     </HistoryLists>
   </ProjectSession>
   <Debugging>
-    <BreakPoints>
-      <Item>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="MDX_Collect_4OP.lpr"/>
-        <Line Value="88"/>
-      </Item>
-    </BreakPoints>
     <Watches>
       <Item>
         <Expression Value="fBank"/>

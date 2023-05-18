@@ -20,13 +20,13 @@ interface
 uses
   Classes, SysUtils, StrUtils, unt4OPVoice, unt4OPBank, untDXUtils, untUtils;
 
-procedure Analyze(aDir, aReportDir: string);
+procedure Analyze(aDir, aReportDir: string; aLevel: integer);
 procedure Compare(aMaster, aIncoming, aReport: string);
 procedure MoveTree(aIncomingList, aRoot, aOutput: string);
 
 implementation
 
-procedure Analyze(aDir, aReportDir: string);
+procedure Analyze(aDir, aReportDir: string; aLevel: integer);
 var
   slFiles: TStringList;
   slHashes: TStringList;
@@ -61,7 +61,7 @@ begin
       begin
         fDXVoice := T4OPVoiceContainer.Create;
         fDXVoice.Load_Voice_FromStream(msFileStream, 0);
-        slHashes.AddPair(fDXVoice.CalculateHash, slFiles[i] + #9#9 +
+        slHashes.AddPair(fDXVoice.CalculateHash(aLevel), slFiles[i] + #9#9 +
           '01: ' + fDXVoice.GetVoiceName);
         fDXVoice.Free;
       end;
@@ -79,7 +79,7 @@ begin
         for j := 1 to 32 do
         begin
           fDXBank.GetVoice(j, fDXVoice);
-          slHashes.AddPair(fDXVoice.CalculateHash, slFiles[i] + #9#9 +
+          slHashes.AddPair(fDXVoice.CalculateHash(aLevel), slFiles[i] + #9#9 +
             Format('%.2d', [j]) + ' ' + fDXVoice.GetVoiceName);
         end;
         fDXVoice.Free;

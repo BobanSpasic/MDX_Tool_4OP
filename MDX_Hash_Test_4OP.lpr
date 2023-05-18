@@ -47,9 +47,11 @@ type
     fVMEM: string;
     fNr: string;
     iNr: integer;
+    sLevel: string;
+    iLevel: integer;
   begin
     // quick check parameters
-    ErrorMsg := CheckOptions('hc:m:n:', 'help vced: vmem: nr:');
+    ErrorMsg := CheckOptions('hc:m:n:l::', 'help vced: vmem: nr: level::');
 
     if ErrorMsg <> '' then
     begin
@@ -69,6 +71,7 @@ type
     fVCED := '';
     fVMEM := '';
     fNr := '';
+    sLevel := '';
 
     if HasOption('c', 'vced') then
     begin
@@ -85,11 +88,17 @@ type
       fNr := GetOptionValue('n', 'nr');
       WriteLn ('Call -n with the value *' + fNr +'*');
     end;
+    if HasOption('l', 'level') then
+    begin
+      sLevel := GetOptionValue('l', 'level');
+      WriteLn ('Call -l with the value *' + sLevel+'*');
+    end;
 
     if (HasOption('c', 'vced')) and (fVCED <> '') then
     begin
+      iLevel := StrToIntDef(sLevel, 3);
       if FileExists(fVCED) then
-        Test_VCEDHash(fVCED)
+        Test_VCEDHash(fVCED, iLevel)
       else
         WriteLn('File ' + fVCED + ' could not be found');
     end;
@@ -101,8 +110,9 @@ type
       begin
         if (iNr > 0) and (iNr < 33) then
         begin
+          iLevel := StrToIntDef(sLevel, 3);
           if FileExists(fVMEM) then
-            Test_VMEMHash(fVMEM, iNr)
+            Test_VMEMHash(fVMEM, iLevel, iNr)
           else
             WriteLn('File ' + fVMEM + ' could not be found');
         end
@@ -131,7 +141,7 @@ type
   begin
     writeln('');
     writeln('');
-    writeln('MDX_Hash_Test - test program for the generated hash summs');
+    writeln('MDX_Hash_Test_4OP - test program for the generated hash summs');
     writeln('Author: Boban Spasic');
     writeln('https://github.com/BobanSpasic/MDX_Tool');
     writeln('');
@@ -140,7 +150,10 @@ type
     writeln('       -h               --help               This help message');
     writeln('       -c               --vced               The single voice for test');
     writeln('       -m               --vmem               The bank for test');
-    writeln('       -n               --nr                 The voice number inside the bank');
+    writeln('       -n {voice}       --nr={voice}         The voice number inside the bank');
+    writeln('       -l {level}       --level={level}      Parameter set for hash calulation');
+    writeLn('                                             1 = DX21, 2 = TX81z, 3 = DX11, 4 = V50');
+    writeLn('                                             If no level is specified, default value 3 is used');
     writeLn('');
     writeln('  Example usage:');
     writeln('       MDX_Hash_Test -i -f my_dx_file.syx');

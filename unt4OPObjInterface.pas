@@ -25,11 +25,11 @@ uses
 procedure GetVoices(aStream: TMemoryStream; var aList: TStringList);
 procedure SplitVMEM2VCED(aStream: TMemoryStream; aOutDir: string);
 procedure RipMidiQuest(aStream: TMemoryStream; aOutDir: string);
-procedure XSplitVMEM2VCED(aStream: TMemoryStream; aOutDir: string);
+procedure XSplitVMEM2VCED(aStream: TMemoryStream; aOutDir: string; aLevel: integer);
 procedure JoinVCED2VMEM(aInputDir: string; aOutFile: string);
-function Hash2Name(aFile: string): boolean;
-function Test_VCEDHash(aFile: string): string;
-function Test_VMEMHash(aFile: string; aVoiceNr: integer = 1): string;
+function Hash2Name(aFile: string; aLevel: Integer): boolean;
+function Test_VCEDHash(aFile: string; aLevel: integer): string;
+function Test_VMEMHash(aFile: string; aLevel: integer; aVoiceNr: integer = 1): string;
 function Voice2Name(aFile: string): boolean;
 function CheckVMEMIntegrity(aStream: TMemoryStream; aPos: integer;
   var aNullVoice: boolean): integer;
@@ -83,7 +83,7 @@ begin
   fBank.Free;
 end;
 
-function Hash2Name(aFile: string): boolean;
+function Hash2Name(aFile: string; aLevel: integer): boolean;
 var
   fVoice: T4OPVoiceContainer;
   fStream: TMemoryStream;
@@ -101,7 +101,7 @@ begin
     begin
       fDirectory := IncludeTrailingPathDelimiter(ExtractFileDir(aFile));
       if fDirectory = PathDelim then fDirectory := '';
-      sPart := fDirectory + fVoice.CalculateHash;
+      sPart := fDirectory + fVoice.CalculateHash(aLevel);
       sNPart := sPart;
       i := 0;
       if aFile <> sPart + '.syx' then
@@ -349,7 +349,7 @@ begin
   msHeadless.Free;
 end;
 
-procedure XSplitVMEM2VCED(aStream: TMemoryStream; aOutDir: string);
+procedure XSplitVMEM2VCED(aStream: TMemoryStream; aOutDir: string; aLevel: integer);
 var
   fBank: T4OPBankContainer;
   fVoice: T4OPVoiceContainer;
@@ -401,9 +401,9 @@ begin
       WriteLn('HasDELAY = ' + BooltoStr(fVoice.HasDELAY, true));
       WriteLn('HasEFEDS = ' + BooltoStr(fVoice.HasEFEDS, true));
       sVoiceName := IncludeTrailingPathDelimiter(aOutDir) +
-        fVoice.CalculateHash + '.4OPvced.syx';
+        fVoice.CalculateHash(aLevel) + '.4OPvced.syx';
       WriteLn('Create :' + sVoiceName);
-      slVoices.AddPair(fVoice.CalculateHash, fVoice.GetVoiceName);
+      slVoices.AddPair(fVoice.CalculateHash(aLevel), fVoice.GetVoiceName);
 
       msVoice := TMemoryStream.Create;
       fVoice.SysExVoiceToStream(1, msVoice);
@@ -709,7 +709,7 @@ begin
   fVoice.Free;
 end;
 
-function Test_VCEDHash(aFile: string): string;
+function Test_VCEDHash(aFile: string; aLevel: integer): string;
 var
   fVoice: T4OPVoiceContainer;
   iPos: integer;
@@ -767,7 +767,7 @@ begin
       end
       else
         WriteLn('Load and save streams not the same size');
-      Result := fVoice.CalculateHash;
+      Result := fVoice.CalculateHash(aLevel);
       WriteLn('Hash summ from record: ' + Result);
       fTmpStream.SetSize(144);
       fTmpStream.Position := 0;
@@ -783,7 +783,7 @@ begin
   end;
 end;
 
-function Test_VMEMHash(aFile: string; aVoiceNr: integer = 1): string;
+function Test_VMEMHash(aFile: string; aLevel: integer; aVoiceNr: integer = 1): string;
 var
   fBank: T4OPBankContainer;
   fVoice: T4OPVoiceContainer;
@@ -828,7 +828,7 @@ begin
     fVoice.Add_VCED_ToStream(fTmpStream);
     Writeln('Stream data after loading from VMEM to VCED:');
     WriteLn(SysExStreamToStr(fTmpStream));
-    Result := fVoice.CalculateHash;
+    Result := fVoice.CalculateHash(aLevel);
     WriteLn('Hash summ from record: ' + Result);
     fTmpStream.SetSize(144);
     fTmpStream.Position := 0;
